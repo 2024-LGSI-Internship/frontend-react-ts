@@ -14,7 +14,6 @@ export default function Chat() {
   })
   const [userInput, setUserInput] = useState('');
   const inputCount = useAppSelector(state => { return state.chat.inputCount });
-  const answerCount = useAppSelector(state => { return state.chat.answerCount });
   const userInputs = useAppSelector(state => { return state.chat.userInputs });
   const aiAnswers = useAppSelector(state => { return state.chat.aiAnswers });
   const dispatch = useAppDispatch();
@@ -64,15 +63,6 @@ export default function Chat() {
     }
     return arr;
   }
-
-  // const renderChatAnswer = () => {
-  //   let arr = [];
-  //   for (let i = 0; i < answerCount; i++) {
-  //     arr.push(
-  //       );
-  //   }
-  //   return arr;
-  // }
 
   return (
     <div className="Chat">Chat

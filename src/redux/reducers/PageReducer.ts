@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 interface pageState{
-  value:number
+  value: number
 }
 
 const initialState: pageState = {
