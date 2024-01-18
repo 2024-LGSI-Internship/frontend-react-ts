@@ -1,0 +1,85 @@
+.Chat{
+
+}
+
+.chatHeader {
+    padding-top: 20px;
+    text-align: center;
+    color: #333;
+}
+
+.chatContent {
+    height:560px;
+    padding-bottom: 20px;
+    overflow-y: auto;
+}
+
+.chatAnswer{
+    margin: 10px 0px 0px 0px;
+    animation: slideInLeft .6s ease forwards;
+}
+.chatQuestion {
+    margin: 10px 0px 0px 0px;
+    animation: slideInRight .6s ease forwards;
+}
+
+.chatYou {
+    margin: 0px 0px 0px 350px;
+}
+
+.chatQuestionContent {
+    max-width: 60%;
+    word-wrap: break-word;
+    background-color: white;
+    margin: 5px 10px 0px 200px;
+    padding: 10px;
+    border-radius: 15px;
+    box-shadow: 0px 5px 10px 0px rgba(47, 47, 47, 0.1);
+}
+
+.chatAI {
+    margin: 0px 370px 0px 0px;
+}
+
+.chatAnswerContent {
+    max-width: 60%;
+    word-wrap: break-word;
+    background-color: rgb(159, 194, 197);
+    margin: 5px 100px 0px 10px;
+    padding: 10px;
+    height: auto;
+    width: auto;
+    overflow: hidden;
+    border-radius: 15px;
+    box-shadow: 0px 5px 10px 0px rgba(47, 47, 47, 0.1);
+}
+
+
+input[type="text"] {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+    /* margin-right: 10px; */
+}
+
+.btn-input {
+    /* border: 1px solid #ccc; */
+    border-radius: 15px;
+    --bs-btn-color: grey;
+    --bs-btn-hover-color: black;
+    --bs-btn-active-border-color: rgba(255, 255, 255, 0);
+}
+
+.chatInputContainer {
+    position: absolute;
+    bottom: 70px;
+    border-top: solid grey 0.1px;
+    width: 100%;
+    padding: 0px 0px 10px 0px;
+    background-color: white;
+    align-items: center;
+}
+
+.chat-bi{
+    font-size: 35px;
+}

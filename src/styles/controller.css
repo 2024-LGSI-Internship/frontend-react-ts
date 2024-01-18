@@ -1,0 +1,51 @@
+.Controller{
+    height: 670px;
+    /* overflow-y:hidden; */
+}
+
+.control-container{
+    background-color: white;
+    padding: 25px 0px 8px 0px;
+    /* height:100px; */
+    width: 400px;
+    border-radius: 15px;
+}
+
+.btn-control{
+    --bs-btn-bg: rgb(217, 233, 234);
+    --bs-btn-hover-bg: rgb(131, 203, 206);
+    --bs-btn-active-bg: rgb(49, 158, 162);
+    --bs-btn-active-border-color: rgba(255, 255, 255, 0);
+}
+.btn-save{
+    font-weight:600;
+    --bs-btn-bg: rgb(131, 203, 206);
+    --bs-btn-hover-bg: rgb(49, 158, 162);
+    --bs-btn-active-bg: rgb(36, 120, 123);
+    --bs-btn-active-border-color: rgba(255, 255, 255, 0);
+}
+
+.toast-save{
+    animation: fadeIn .8s ease forwards;
+    position: absolute;
+    z-index: 9999;
+    bottom:90px;
+    margin-left:90px;
+    box-shadow: 0px 5px 10px 0px rgba(47, 47, 47, 0.1);
+    background-color: rgba(255, 255, 255, 0.882);
+}
+.control-1{
+    animation: slideUp .6s ease forwards;
+}
+.control-2 {
+    animation: slideUp .8s ease forwards;
+}
+.control-3 {
+    animation: slideUp 1s ease forwards;
+}
+.control-4 {
+    animation: slideUp 1.2s ease forwards;
+}
+.control-5 {
+    animation: slideUp 1.6s ease forwards;
+}

@@ -1,0 +1,100 @@
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 100;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 100;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes slideInLeft {
+  0% {
+    transform: translateX(-100px) scale(.2);
+  }
+
+  100% {
+    transform: translateX(0px) scale(1);
+  }
+}
+
+@keyframes slideInRight {
+  0% {
+    transform: translateX(100px) scale(.2);
+  }
+
+  100% {
+    transform: translateX(0px) scale(1);
+  }
+}
+
+@keyframes slideUp {
+  0% {
+    transform: translateY(100px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes slideDown {
+  0% {
+    transform: translateY(-100px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes expand {
+  0% {
+    transform: translateX(100px);
+  }
+
+  100% {
+    transform: translateX(0px);
+  }
+}
+
+body {
+  background-color: cadetblue;
+  position: relative;
+  font-family: 'Noto Sans', sans-serif;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-family: 'Poppins', sans-serif;
+}
+
+.App {
+  position: absolute;
+  text-align: center;
+  height: 800px;
+  width: 450px;
+  background-color: rgb(234, 238, 238);
+  box-shadow: 0px 5px 10px 0px rgba(47, 47, 47, 0.5);
+  border-radius: 20px;
+  top: 50%;
+  left: 50%;
+  margin: 50px 0 0 -225px;
+}
+
+div {
+  box-sizing: border-box;
+}
+
+.Header {
+  background-color: white;
+  margin-top: 5px;
+  border-radius: 20px 20px 0px 0px;
+}
