@@ -1,8 +1,9 @@
 # LGSI INTERNSHIP - Smart AI Air Conditioner : Frontend
 
 ## Used Skill Stacks
-- React.js
-- React-Redux
+- React
+- React-Redux, Redux-Thunk
+- Typescript, HTML, CSS
 - Bootstrap 5
 
 ## FE Plans
