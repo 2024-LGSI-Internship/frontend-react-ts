@@ -8,10 +8,12 @@ export default function Status() {
   let userStat = useAppSelector(state => { return state.status.userData });
   let curStat = useAppSelector(state => { return state.status.curData });
   const dispatch = useAppDispatch();
+
   useEffect(() => {
     dispatch(getUserData());
     dispatch(getCurData());
-  })
+  });
+
   return (
     <div>
       <div className='container status-info mt-4 mb-4 info-1'>
@@ -29,8 +31,8 @@ export default function Status() {
             <i className="bi bi-person-arms-up"></i>
           </div>
           <div className="status-content">
-            <span className='fs-6 fw-light'>set Motion type</span>
-            <p className='fs-5 fw-bolder'>{userStat.userMode}</p>
+            <span className='fs-6 fw-light'>Set Mode type</span>
+            <p className='fs-5 fw-bolder'>{userStat.userMode==='heating'?'HEAT':'AC'}</p>
           </div>
         </div>
       </div>
@@ -40,7 +42,7 @@ export default function Status() {
             <i className="bi bi-thermometer"></i>
           </div>
           <div className="status-content">
-            <span className='fs-6 fw-light'>current Temperature</span>
+            <span className='fs-6 fw-light'>Current Temperature</span>
             <p className='fs-5 fw-bolder'>{curStat.curTemp}℃</p>
           </div>
         </div>
@@ -49,7 +51,7 @@ export default function Status() {
             <i className="bi bi-droplet-fill"></i>
           </div>
           <div className="status-content">
-            <span className='fs-6 fw-light'>current Humidty</span>
+            <span className='fs-6 fw-light'>Current Humidty</span>
             <p className='fs-5 fw-bolder'>{curStat.curHumid}%</p>
           </div>
         </div>

@@ -17,7 +17,6 @@ export default function Footer() {
       arr.push(
         <div className="col">
           <button className={`btn ${showPages===i?'footer-btn-activated':'footer-btn'}`} value={i} onClick={() => dispatch(handlePage[i-1])}>
-          {/* <button className={`btn ${props.page===i?'footer-btn-activated':'footer-btn'}`} value={i} onClick={props.handlePages}> */}
             <i className={`bi footer-bi ${footerIcons[i-1]}`}></i>
             <p className='footer-text'>{footerText[i-1]}</p>
           </button>
@@ -28,7 +27,7 @@ export default function Footer() {
   }
 
   return (
-    <footer className="Footer rounded-top-3">
+    <footer className="Footer">
       <div className="container text-center">
         <div className="row">
           {renderFooterList()}

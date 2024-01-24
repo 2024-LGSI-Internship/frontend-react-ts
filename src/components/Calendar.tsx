@@ -1,14 +1,17 @@
 import React, { useState } from 'react'
 import '../styles/calendar.css'
 
-export default function Calendar() {
-  const [curMonth, setCurMonth] = useState(1);
   const monthName = ['', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'Octboer', 'November', 'December']
   const month = [31, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
   const disabled_days = [0, 31, 28, 25, 31, 28, 26, 30, 28, 32, 29, 27, 31, 29];
 
   const ai_days = [23, 24, 25, 26]
   const ai_time = ['18:30-24:00', '24:00-04:00', '14:30-17:30', '17:30-19:30']
+
+export default function Calendar() {
+  const [curMonth, setCurMonth] = useState(1);
+  const [modalDay, setModalDay] = useState(0);
+  const [showModal, setShowModal] = useState(false);
 
   const renderCalDays = (m:number) => {
     let arr = [];
@@ -21,7 +24,7 @@ export default function Calendar() {
     for (let i = 1; i <= month[m]; i++){
       let calClass = (!ai_days.includes(i) ? 'btn cal-btn' : 'btn cal-btn-ai');
       arr.push(
-        <button className={calClass} type="button" data-bs-whatever={i} data-bs-toggle="modal" data-bs-target="#exampleModal">{i}</button>
+        <button className={calClass} type="button" value={i} onClick={handleCustomSchedule}>{i}</button>
       );
     }
     return arr;
@@ -44,10 +47,15 @@ export default function Calendar() {
     return arr;
   }
 
-  // const handleCustomSchedule = () => {
-    
-  // }
+  const handleToggleModal = () => {
+    setShowModal(!showModal);
+  };
 
+
+  const handleCustomSchedule = (e:any) => {
+    handleToggleModal();
+    setModalDay(parseInt(e.target.value));
+  }
   const changeMonth = (e:any) => {
     console.log(`changeMonth called, changed to month ${curMonth}`);
     const next = parseInt(e.currentTarget.value);
@@ -89,6 +97,54 @@ export default function Calendar() {
         <p className="cal-ai-title border-bottom border-1 mb-3">Smart recommendation</p>
         {renderAIrecomm()}
       </div>
-  </div>
+      {showModal && <Modal day={modalDay} toggle={handleToggleModal} />}
+    </div>
   )
+}
+
+function Modal(props: any) {
+  const [showToast, setShowToast] = useState(false);
+
+  const handleSave = (e: any) => {
+    setShowToast(true);
+    setTimeout(props.toggle, 1000);
+  }
+  return (
+    <>
+    <div className="modal-backdrop opacity-25"></div>
+    <div className="modal show" role="dialog">
+      <div className="modal-dialog-center">
+        <div className="modal-content">
+          <div className="modal-header">
+            <h5 className="modal-title">Set your Custom Schedule</h5>
+            <button type="button" className="btn-close" onClick={props.toggle}></button>
+          </div>
+          <div className="modal-body">
+              <p>Date: {props.day}</p>
+              <p>Time: </p>
+              <p>setTemp: </p>
+              <p>Mode: </p>
+              <p>WindStrength: </p>
+              <p>WindAngle: </p>
+          </div>
+          <div className="modal-footer justify-content-center">
+            <button type="button" className="btn cal-btn-ai" onClick={handleSave}>
+              Save
+            </button>
+          </div>
+        </div>
+      </div>
+      </div>
+      {showToast &&
+        <div className="toast show align-items-center toast-save" role="alert" aria-live="assertive" aria-atomic="true">
+          <div className="d-flex">
+            <div className="toast-body">
+              Your AC settings are saved!
+            </div>
+            <button type="button" className="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+          </div>
+        </div>
+      }
+      </>
+  );
 }

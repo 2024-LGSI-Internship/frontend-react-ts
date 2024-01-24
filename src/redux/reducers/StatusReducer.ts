@@ -74,8 +74,10 @@ export const statusSlice = createSlice({
   name: "status",
   initialState,
   reducers: { //동기 작업
-    changeUserTemp: (state, action:PayloadAction<number>) => { //action : reducer에 전달하는 인자
-      state.userData.userTemp += action.payload;
+    changeUserTemp: (state, action: PayloadAction<number>) => { //action : reducer에 전달하는 인자
+      let temp = state.userData.userTemp + action.payload;
+      if(temp >= 18 && temp <= 30)
+        state.userData.userTemp += action.payload;
     },
     changeUserMode: (state, action:PayloadAction<string>) => {
       state.userData.userMode = action.payload;

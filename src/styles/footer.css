@@ -1,12 +1,13 @@
 Footer {
+    z-index:2;
     height: 80px;
     width: 100%;
-    background-color: white;
+    background-color: #fafafa;
     position: absolute;
     bottom: 0;
     border-top: solid gray 0.1px;
     margin-bottom: 5px;
-    border-radius: 15px 15px 20px 20px;
+    border-radius: 0px 0px 20px 20px;
     /* box-shadow: 0px 0px 10px 1px rgb(223, 223, 223) inset; */
     /* align-items: stretch;
   justify-content: space-between; */

@@ -25,7 +25,8 @@ interface chatState {
   inputCount: number,
   userInputs: string[],
   answerCount: number,
-  aiAnswers: string[]
+  aiAnswers: string[],
+  getChatResponse: string
 }
 
 // Define the initial state using that type
@@ -33,7 +34,8 @@ const initialState: chatState = {
   inputCount: 0,
   userInputs: [],
   answerCount:0,
-  aiAnswers: []
+  aiAnswers: [],
+  getChatResponse: 'None',
 }
 
 export const chatSlice = createSlice({
@@ -49,12 +51,17 @@ export const chatSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+    .addCase(getChatData.pending, (state) => {
+      state.getChatResponse = 'loading';
+      console.log(`CHAT RESPONSE STATUS: ${state.getChatResponse}`)
+    })
     .addCase(getChatData.fulfilled, (state, action: PayloadAction<string>) => {
-      console.log(`get data: ${action.payload}`);
+      state.getChatResponse = 'complete';
+      console.log(`CHAT RESPONSE STATUS: ${state.getChatResponse}`)
       state.aiAnswers.push(action.payload);
       state.answerCount += 1;
-      console.log(`chat reducer aianswers: ${state.aiAnswers}`);
-      console.log(`chat reducer answercount: ${state.answerCount}`);
+      console.log(`chat reducer AI answers: ${state.aiAnswers}`);
+      console.log(`chat reducer AI answer count: ${state.answerCount}`);
     })
     .addCase(postChatData.fulfilled, (state, action) => {
       console.log(`post data: ${JSON.stringify(action.payload)}`);

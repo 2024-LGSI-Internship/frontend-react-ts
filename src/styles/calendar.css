@@ -39,16 +39,19 @@
     height: 3rem;
     padding: 0;
 }
+.cal-btn-custom{
+
+}
 .cal-btn-ai{
     display: flex;
     flex-shrink: 0;
     align-items: center;
     justify-content: center;
     height: 3rem;
-    padding: 0;
-    --bs-btn-bg: rgb(217, 233, 234);
-    --bs-btn-hover-bg: rgb(131, 203, 206);
-    --bs-btn-active-bg: rgb(49, 158, 162);
+    margin: 1px;
+    --bs-btn-bg: #e3edf8;
+    --bs-btn-hover-bg: #b9d5f4;
+    --bs-btn-active-bg: #8fbef5;
     --bs-btn-active-border-color: rgba(255, 255, 255, 0);
 }
 
@@ -70,7 +73,7 @@
 
 .cal-container{
     animation: slideUp 1.2s ease forwards;
-    background-color: white;
+    background-color: #fafafa;
     padding: 10px 0px 10px 0px;
     /* height:100px; */
     width: 400px;
@@ -84,7 +87,7 @@
     margin: 0% 5% 5% 10%;
     font-size: 25px;
     border-radius: 100%;
-    background-color: rgb(217, 233, 234);
+    background-color: #e3edf8;
 }
 
 .cal-ai-content{
@@ -94,4 +97,21 @@
     font-weight:500;
     font-size:20px;
     padding-bottom:10px;
+}
+
+.modal{
+    animation: fadeIn .5s ease forwards;
+    display: block;
+    position: absolute;
+    border-radius:20px;
+    /* width: 300px; */
+}
+
+.modal-backdrop{
+    /* border-radius:20px; */
+    z-index: 1;
+    top:68px;
+    height: 647px;
+    width: 450px;
+    position:absolute;
 }

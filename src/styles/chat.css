@@ -1,57 +1,66 @@
-.Chat{
-
-}
-
-.chatHeader {
+.chat-header {
     padding-top: 20px;
     text-align: center;
     color: #333;
 }
 
-.chatContent {
-    height:560px;
+.chat-content-container {
+    height:580px;
     padding-bottom: 20px;
     overflow-y: auto;
 }
 
-.chatAnswer{
-    margin: 10px 0px 0px 0px;
-    animation: slideInLeft .6s ease forwards;
-}
-.chatQuestion {
+.chat-question {
+    display: inline-block;
     margin: 10px 0px 0px 0px;
     animation: slideInRight .6s ease forwards;
 }
-
-.chatYou {
-    margin: 0px 0px 0px 350px;
+.chat-answer {
+    display: inline-block;
+    margin: 10px 0px 0px 0px;
+    animation: slideInLeft .6s ease forwards;
 }
 
-.chatQuestionContent {
-    max-width: 60%;
-    word-wrap: break-word;
-    background-color: white;
-    margin: 5px 10px 0px 200px;
-    padding: 10px;
-    border-radius: 15px;
-    box-shadow: 0px 5px 10px 0px rgba(47, 47, 47, 0.1);
+.chat-you {
+    margin: 0px 0px 0px 360px;
 }
 
-.chatAI {
-    margin: 0px 370px 0px 0px;
+.chat-ai {
+    margin: 0px 380px 0px 0px;
 }
 
-.chatAnswerContent {
-    max-width: 60%;
-    word-wrap: break-word;
-    background-color: rgb(159, 194, 197);
-    margin: 5px 100px 0px 10px;
-    padding: 10px;
+.chat-question-content {
+    text-align: left;
+    max-width:80%;
     height: auto;
     width: auto;
-    overflow: hidden;
+    word-wrap: break-word;
+    background-color: #fafafa;
+    margin: 5px 10px 0px 0px;
+    padding: 10px;
     border-radius: 15px;
-    box-shadow: 0px 5px 10px 0px rgba(47, 47, 47, 0.1);
+    box-shadow: 3px 3px 5px 0px rgb(47, 47, 47,0.1);
+    float: right;
+}
+
+.chat-answer-content {
+    text-align: left;
+    max-width: 80%;
+    height: auto;
+    width: auto;
+    word-wrap: break-word;
+    background-color: #b9d5f4;
+    margin: 5px 100px 0px 10px;
+    padding: 10px;
+    border-radius: 15px;
+    box-shadow: -3px 3px 5px 0px rgb(47, 47, 47, 0.1);
+    float:left;
+}
+
+.chat-loading-content{
+    margin-top: 10px;
+    margin-left: 20px;
+    float: left;
 }
 
 
@@ -70,16 +79,23 @@ input[type="text"] {
     --bs-btn-active-border-color: rgba(255, 255, 255, 0);
 }
 
-.chatInputContainer {
+.chat-input-container {
     position: absolute;
     bottom: 70px;
     border-top: solid grey 0.1px;
     width: 100%;
-    padding: 0px 0px 10px 0px;
-    background-color: white;
+    padding: 0px 0px 15px 0px;
+    background-color: #fafafa;
     align-items: center;
 }
 
 .chat-bi{
     font-size: 35px;
+}
+
+.spinner-grow{
+    height: 0.8rem;
+    width: 0.8rem;
+    margin:10px;
+    background-color: #626262;
 }

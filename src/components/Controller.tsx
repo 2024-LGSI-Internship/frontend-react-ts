@@ -10,8 +10,8 @@ export default function Controller() {
   const stat = useAppSelector(state => state.status.userData);
   const dispatch = useAppDispatch();
 
-  const handleUserTemp = (e:any) => {
-    dispatch(changeUserTemp(parseInt(e.target.value)));
+  const handleUserTemp = (e: any) => {
+    dispatch(changeUserTemp(parseInt(e.currentTarget.value)));
   }
 
   const handleUserMode = (e:any) => {
@@ -33,36 +33,44 @@ export default function Controller() {
   return (
     <>
     <div className="Controller">
-      <div className="container control-container mt-4 control-1">
-        <p>AC Temperature: {stat.userTemp}</p>
-        <div className="btn-group">
-          <button className="btn btn-control" type="button" value={1} onClick={handleUserTemp}>up</button>
-          <button className="btn btn-control" type="button" value={-1} onClick={handleUserTemp}>down</button>
+      <div className='container d-flex'> 
+        <div className="container control-container mt-4 mx-2 control-1">
+          <span className='fs-6 fw-light'>Set Temperature</span>
+          <p className='fs-1 fw-bolder'>{stat.userTemp}℃</p>
+          <div className="container">
+            <button className="btn btn-lg btn-control mx-1" type="button" value={-1} onClick={handleUserTemp}><i className="bi bi-control bi-caret-down-fill"></i></button>
+            <button className="btn btn-lg btn-control mx-1" type="button" value={+1} onClick={handleUserTemp}><i className="bi bi-control bi-caret-up-fill"></i></button>
+          </div>
         </div>
-        </div>
-      <div className="container control-container mt-4 control-2">
-        <p>AC Mode: {stat.userMode}</p>
-        <div className="btn-group">
-          <button className="btn btn-control" type="button" value={'heating'} onClick={handleUserMode}>heating</button>
-          <button className="btn btn-control" type="button" value={'air-conditioning'} onClick={handleUserMode}>air-conditioning</button>
-        </div>
-      </div>
-      <div className="container control-container mt-4 control-3">
-        <p>AC Wind Angle: {stat.userWindAngle}</p>
-        <div className='btn-group'> 
-          <button className="btn btn-control" type="button" value={'strong'} onClick={handleUserWindAngle}>Strong</button>
-          <button className="btn btn-control" type="button" value={'normal'} onClick={handleUserWindAngle}>Normal</button>
-          <button className="btn btn-control" type="button" value={'weak'} onClick={handleUserWindAngle}>Weak</button>
+        <div className="container control-container mt-4 mx-2 control-1">
+          <span className='fs-6 fw-light'>Mode</span>
+          <p className='fs-1 fw-bolder'>{stat.userMode==='heating'?'HEAT':'AC'}</p>
+          <div className="container">
+            <button className="btn btn-lg btn-control mx-1" type="button" value={'heating'} onClick={handleUserMode}>HEAT</button>
+            <button className="btn btn-lg btn-control mx-1" type="button" value={'air-conditioning'} onClick={handleUserMode}>AC</button>
+          </div>
         </div>
       </div>
-      <div className="container control-container mt-4 control-4">
-        <p>AC Wind Strength: {stat.userWindStrength}</p>
-        <div className='btn-group'>
-          <button className="btn btn-control" type="button" value={'horizontal'} onClick={handleUserWindStrength}>Horizontal</button>
-          <button className="btn btn-control" type="button" value={'normal'} onClick={handleUserWindStrength}>Normal</button>
-          <button className="btn btn-control" type="button" value={'vertical'} onClick={handleUserWindStrength}>Vertical</button>
-          <button className="btn btn-control" type="button" value={'auto'} onClick={handleUserWindStrength}>AUTO</button>
-        </div>
+        <div className='container d-flex'>
+          <div className="container control-container mt-4 mx-2 control-2">
+          <span className='fs-6 fw-light'>Wind Strength</span>
+          <p className='fs-1 fw-bolder'>{stat.userWindStrength}</p>
+            <div className='list-group'> 
+              <button className="list-group-item btn-control" type="button" value={'strong'} onClick={handleUserWindStrength}>Strong</button>
+              <button className="list-group-item btn-control" type="button" value={'normal'} onClick={handleUserWindStrength}>Normal</button>
+              <button className="list-group-item btn-control" type="button" value={'weak'} onClick={handleUserWindStrength}>Weak</button>
+            </div>
+          </div>
+          <div className="container control-container mt-4 mx-2 control-2">
+            <span className='fs-6 fw-light'>Wind Angle</span>
+            <p className='fs-1 fw-bolder'>{stat.userWindAngle}</p>
+            <div className='list-group'>
+              <button className="list-group-item btn-control" type="button" value={'horizontal'} onClick={handleUserWindAngle}>Horizontal</button>
+              <button className="list-group-item btn-control" type="button" value={'normal'} onClick={handleUserWindAngle}>Normal</button>
+              <button className="list-group-item btn-control" type="button" value={'vertical'} onClick={handleUserWindAngle}>Vertical</button>
+              <button className="list-group-item btn-control" type="button" value={'auto'} onClick={handleUserWindAngle}>AUTO</button>
+            </div>
+          </div>
         </div>
       <div className='container mt-4 control-5'>
         <button className="btn btn-save" type="button" onClick={handleSave}>Save Settings</button>
