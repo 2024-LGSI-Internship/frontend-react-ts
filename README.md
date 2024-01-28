@@ -3,7 +3,8 @@
 ## Used Skill Stacks
 - React
 - React-Redux, Redux-Thunk
-- Typescript, HTML, CSS
+- Typescript, HTML, SCSS
+- http-proxy-middleware
 - Bootstrap 5
 
 ## FE Plans
@@ -33,20 +34,21 @@
 - **Designing Data State Management Structure**
     - Global State Management (Redux)
         - Air conditioner information (user, cur) data
-        (Displayed in **`Status.js`**, updated in **`Controller.js`**, sent after update)
+        (Displayed in **`Status.tsx`**, updated in **`Controller.tsx`**, sent after update)
         - Manually registered air conditioner operating data - date/time
-        (Displayed in **`Calendar.js`**, also displayed in **`Status.js`**)
+        (Displayed in **`Calendar.tsx`**, also displayed in **`Status.tsx`**)
     - Local State Management (State)
         - Chatbot send/receive data (conversation history)
 - **Designing UI (Design) and Implementation**
     - Planning to implement in web app format
     - Four pages
-        - View Status - **`Status.js`**
-        - Remote Controller - **`Controller.js`**
-        - AI Chat - **`Chat.js`**
-        - View Calendar - **`Calendar.js`**
+        - View Status - **`Status.tsx`**
+        - Remote Controller - **`Controller.tsx`**
+        - AI Chat - **`Chat.tsx`**
+        - View Calendar - **`Calendar.tsx`**
 
 ## requirements
 - `npm i react-scripts axios @types/http-proxy-middleware`
 - `npm i @reduxjs/toolkit react-redux`
 - `npm i @types/node @types/react @types/react-dom @types/jest`
+- `npm i node-sass`
