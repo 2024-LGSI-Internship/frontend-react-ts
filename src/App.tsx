@@ -1,5 +1,5 @@
 /*eslint-disable*/
-import './App.css';
+import './styles/App.scss';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Status from './components/Status';

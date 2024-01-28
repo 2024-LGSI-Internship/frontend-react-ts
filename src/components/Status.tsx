@@ -2,7 +2,7 @@ import React from 'react'
 import { useAppDispatch,useAppSelector } from '../hooks';
 import { useEffect } from 'react';
 import { getCurData, getUserData } from '../redux/reducers/StatusReducer';
-import '../styles/status.css'
+import '../styles/status.scss'
 
 export default function Status() {
   let userStat = useAppSelector(state => { return state.status.userData });
@@ -16,7 +16,7 @@ export default function Status() {
 
   return (
     <div>
-      <div className='container status-info mt-4 mb-4 info-1'>
+      <div className='container status-info mt-4 mb-4 status-1'>
         <div className="d-flex">
           <div className='info-icon'>
            <i className="bi bi-thermometer-half"></i>
@@ -36,7 +36,7 @@ export default function Status() {
           </div>
         </div>
       </div>
-      <div className='container status-info mb-4 info-2'>
+      <div className='container status-info mb-4 status-2'>
         <div className="d-flex">
           <div className='info-icon'>
             <i className="bi bi-thermometer"></i>
@@ -56,7 +56,7 @@ export default function Status() {
           </div>
         </div>
       </div>
-      <div className='container status-info info-3'>
+      <div className='container status-info status-3'>
         <div className="d-flex">
           <div className='info-icon'>
             <i className="bi bi-arrows-move"></i>

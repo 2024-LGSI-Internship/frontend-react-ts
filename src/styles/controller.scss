@@ -1,0 +1,57 @@
+@import './colors.scss';
+
+.Controller{
+    height: 670px;
+    overflow-y:auto;
+}
+
+.control{
+    &-container{
+        background-color: $white;
+        padding: 10px 0px 8px 0px;
+        width: 400px;
+        border-radius: 15px;
+    }
+    &-1{
+        animation: slideUp .6s ease forwards;
+    }
+    &-2 {
+        animation: slideUp .8s ease forwards;
+    }
+    &-3 {
+        animation: slideUp 1s ease forwards;
+    }
+}
+
+.btn{
+    &-control{
+        border-radius:30%;
+        color: $blue5;
+        background-color: $blue1;
+        --bs-btn-hover-bg: #{$blue2};
+        --bs-btn-active-bg: #{$blue3};
+        --bs-btn-active-border-color: #{$transparent};
+    }
+    &-save{
+        font-weight: 600;
+        background-color: $blue2;
+        --bs-btn-hover-bg: #{$blue3};
+        --bs-btn-active-bg: #{$blue4};
+        --bs-btn-active-border-color: #{$transparent};
+    }
+}
+
+.toast-save{
+    animation: fadeIn .8s ease forwards;
+    position: absolute;
+    z-index: 9999;
+    bottom:90px;
+    margin-left:90px;
+    box-shadow: 0px 5px 10px 0px rgba(47, 47, 47, 0.1);
+    background-color: rgba(255, 255, 255, 0.882);
+}
+
+.bi-control{
+    color: $blue5;
+    font-size:25px;
+}

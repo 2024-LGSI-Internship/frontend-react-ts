@@ -52,14 +52,18 @@ interface statusState{
   postUserResponse: string
 }
 
+const WIND_ANGLE = ['AUTO','Vertical','Normal','Horizontal']
+
+const WIND_STRENGTH = ['Weak', 'Normal','Strong']
+
 const initialState: statusState = {
     userData: {
       userTemp: 0,
       userMode: 'NaN', //heating, air-conditioning
       userDate: 'NaN',
       userTime: 'NaN',
-      userWindAngle: 'NaN', //horizontal, normal, vertical, auto
-      userWindStrength: 'NaN' //strong, normal, weak
+      userWindAngle: 'NaN',
+      userWindStrength: 'NaN'
     },
     curData: {
       curTemp: 0,
@@ -82,11 +86,27 @@ export const statusSlice = createSlice({
     changeUserMode: (state, action:PayloadAction<string>) => {
       state.userData.userMode = action.payload;
     },
-    changeUserWindAngle: (state, action:PayloadAction<string>) => {
-      state.userData.userWindAngle = action.payload;
+    changeUserWindAngle: (state, action: PayloadAction<number>) => {
+      if (action.payload === 0)
+        state.userData.userWindAngle = WIND_ANGLE[action.payload];
+      else {
+        let idx = WIND_ANGLE.findIndex((angle) => {
+          return angle === state.userData.userWindAngle;
+        })
+        idx+=action.payload;
+        console.log(idx);
+        if (idx >= 1 && idx <= 3)
+          state.userData.userWindAngle = WIND_ANGLE[idx];
+      }
+
     },
-    changeUserWindStrength: (state, action:PayloadAction<string>) => {
-      state.userData.userWindStrength = action.payload;
+    changeUserWindStrength: (state, action:PayloadAction<number>) => {
+      let idx = WIND_STRENGTH.findIndex((str) => {
+        return str === state.userData.userWindStrength;
+      })
+      idx += action.payload;
+      if (idx >= 0 && idx <= 2)
+        state.userData.userWindStrength = WIND_STRENGTH[idx];
     }
 
   },

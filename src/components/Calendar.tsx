@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import '../styles/calendar.css'
+import '../styles/calendar.scss'
 
   const monthName = ['', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'Octboer', 'November', 'December']
   const month = [31, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
@@ -69,7 +69,7 @@ export default function Calendar() {
   }
 
   return (
-    <div className="Calendar">
+    <div className="cal">
       <div className="cal-main mt-4 mb-4">
         <div className="cal-month border-bottom">
           <button className="btn cal-btn" type="button" value={0} onClick={changeMonth}>
@@ -93,7 +93,7 @@ export default function Calendar() {
           {renderCalDays(curMonth)}
         </div>
       </div>
-      <div className="container cal-container">
+      <div className="container cal-ai">
         <p className="cal-ai-title border-bottom border-1 mb-3">Smart recommendation</p>
         {renderAIrecomm()}
       </div>

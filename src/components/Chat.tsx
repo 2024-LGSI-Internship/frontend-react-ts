@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState, useEffect, useRef } from 'react';
-import '../styles/chat.css'
+import '../styles/chat.scss'
 import { useAppSelector, useAppDispatch } from '../hooks'
 import { getChatData, postChatData, saveUserInput } from '../redux/reducers/ChatReducer';
 
@@ -50,27 +50,29 @@ export default function Chat() {
       handleInputSubmit(e);
   }
 
-  const handleInputSubmit = (e:any) => {
-    dispatch(saveUserInput(userInput));
-    dispatch(postChatData(userInput));
-    dispatch(getChatData());
+  const handleInputSubmit = (e: any) => {
+    if (userInput !== '') {
+      dispatch(saveUserInput(userInput));
+      dispatch(postChatData(userInput));
+      dispatch(getChatData());
+    }
   }
   const renderChat = () => {
-    let arr = []
+    let arr = [];
     for (let i = 0; i < inputCount; i++) {
       arr.push(
         <>
-          <div className="chat-question">
-            <span className='chat-you'>You</span>
-            <div className="chat-question-content">
+          <div className="chat question recent">
+            <span className='chat question name'>You</span>
+            <div className="chat question content">
               <span className='chat-text'>{userInputs[i]}</span>
             </div>
           </div>
           {i === (inputCount - 1) ?
-            (<div className="chat-answer">
-              <span className='chat-ai'>AI</span>
-              {chatResponse === 'loading' &&
-              <div className='chat-loading-content'>
+            (<div className="chat answer">
+              <span className='chat answer name'>AI</span>
+              {chatResponse === 'loading' && //loading then show spinner
+              <div className='chat answer loading'>
                 <div className="spinner-grow" role="status">
                   <span className="visually-hidden">Loading...</span>
                 </div>
@@ -82,15 +84,15 @@ export default function Chat() {
                 </div>
               </div>
               }
-              {chatResponse === 'complete' &&
-              <div className="chat-answer-content">
+              {chatResponse === 'complete' && //complete then show answer
+              <div className="chat answer content">
                 <span className='chat-text'>{aiAnswers[i]}</span>
               </div>
               }
-            </div>) :
-            (<div className="chat-answer">
-              <span className='chat-ai'>AI</span>
-                <div className="chat-answer-content">
+            </div>) : //if it is not the last answer then just render
+            (<div className="chat answer">
+              <span className='chat answer name'>AI</span>
+                <div className="chat answer content">
                   <span className='chat-text'>{aiAnswers[i]}</span>
                 </div>
               </div>
@@ -103,20 +105,20 @@ export default function Chat() {
   }
 
   return (
-    <div className="Chat">
-      <div className="chat-content-container">
-        <div className="chat-answer">
-          <span className='chat-ai'>AI</span>
-          <div className="chat-answer-content">
+    <div className="chat">
+      <div className="chat-container">
+        <div className="chat answer recent">
+          <span className='chat answer name'>AI</span>
+          <div className="chat answer content">
             <span className='chat-text'>Ask anything about AC! 🤖</span>
           </div>
-          </div>
+        </div>
         {renderChat()}
         <div ref={messageEndRef}></div>
       </div>
-      <div className="d-flex chat-input-container">
+      <div className="d-flex chat-input">
         <button className="btn btn-input"><i className="chat-bi bi bi-list"></i></button>
-        <input className="form-control" ref={inputRef} type="text" value={userInput} onChange={handleInputChange} onKeyPress={handleOnKeyPress} placeholder="Ask anything to AI."></input>
+        <input className="form-control" ref={inputRef} type="text" value={userInput} onChange={handleInputChange} onKeyPress={handleOnKeyPress} placeholder="Ask anything to AI"></input>
         <button className="btn btn-input" onClick={handleInputSubmit}><i className="chat-bi bi bi-arrow-up-circle-fill"></i></button>
       </div>
     </div>

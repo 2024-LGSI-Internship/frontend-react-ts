@@ -1,0 +1,99 @@
+@import './colors.scss';
+
+.cal{
+    height: 700px;
+    padding-bottom: 80px;
+    overflow-y: auto;
+    &-ai{
+        animation: slideUp 1.2s ease forwards;
+        background-color: $white;
+        padding: 10px 0px 10px 0px;
+        width: 400px;
+        border-radius: 15px;
+        &-title{
+            font-weight: 500;
+            font-size: 20px;
+            padding-bottom: 10px;
+        }
+        &-date{
+            width: 50px;
+            height: 50px;
+            padding: 1.7% 0% 0% 0%;
+            margin: 0% 5% 5% 10%;
+            font-size: 25px;
+            border-radius: 100%;
+            background-color: $blue1;
+        }
+        &-content{
+            text-align: left;
+        }
+    }
+    &-main{
+        animation: slideUp .8s ease forwards;
+        background-color: $white;
+        margin: 25px 25px 0px 25px;
+        border-radius: 15px;
+    }
+    &-month{
+        background-color: rgb(234, 217, 217);
+        border-radius: 15px 15px 0px 0px;
+        &-name{
+            grid-column-start: 2;
+            grid-column-end: 7;
+            text-align: center;
+        }
+    }
+    &-month,&-days,&-weekdays{
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        align-items: center;
+    }
+    &-weekday,&-btn{
+        display: flex;
+        flex-shrink: 0;
+        align-items: center;
+        justify-content: center;
+        height: 3rem;
+        padding: 0;
+    }
+    &-btn{
+        &-ai{
+            display: flex;
+            flex-shrink: 0;
+            align-items: center;
+            justify-content: center;
+            height: 3rem;
+            margin: 1px;
+            --bs-btn-bg: #{$blue1};
+            --bs-btn-hover-bg: #{$blue2};
+            --bs-btn-active-bg: #{$blue3};
+            --bs-btn-active-border-color: #{$transparent};
+        }
+        &-disabled{
+            border: 0;
+            opacity: .5;
+            --bs-btn-active-border-color: #{$transparent};
+        }
+        :not([disabled]) {
+            font-weight: 500;
+        }
+        :hover,:focus{
+            background-color: rgba(0, 0, 0, .05);
+        }
+    }
+
+}
+
+.modal{
+    animation: fadeIn .5s ease forwards;
+    display: block;
+    position: absolute;
+    border-radius:20px;
+    &-backdrop{
+        z-index: 1;
+        top: 68px;
+        height: 647px;
+        width: 450px;
+        position: absolute;
+    }
+}

@@ -1,0 +1,32 @@
+@import './colors.scss';
+
+Footer {
+    z-index:2;
+    height: 80px;
+    width: 100%;
+    background-color: $white;
+    position: absolute;
+    bottom: 0;
+    border-top: solid gray 0.1px;
+    margin-bottom: 5px;
+    border-radius: 0px 0px 20px 20px;
+}
+
+.footer {
+    &-btn{
+        --bs-btn-color: grey;
+        --bs-btn-hover-color: black;
+        --bs-btn-active-border-color: rgba(255, 255, 255, 0);
+        &-activated{
+            --bs-btn-color: black;
+            --bs-btn-active-border-color: rgba(255, 255, 255, 0);
+        }
+    }
+    &-text{
+        font-weight: 500;
+        font-size: 12px;
+    }
+    &-bi{
+        font-size: 35px;
+    }
+}

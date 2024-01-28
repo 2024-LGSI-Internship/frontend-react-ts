@@ -1,3 +1,5 @@
+@import './colors.scss';
+
 @keyframes fadeIn {
   0% {
     opacity: 0;
@@ -20,7 +22,7 @@
 
 @keyframes slideInLeft {
   0% {
-    transform: translateX(-100px) scale(.2);
+    transform: translateX(0px) scale(.2);
   }
 
   100% {
@@ -30,7 +32,7 @@
 
 @keyframes slideInRight {
   0% {
-    transform: translateX(100px) scale(.2);
+    transform: translateX(0px) scale(.2);
   }
 
   100% {
@@ -88,7 +90,8 @@ body {
 }
 
 .Header {
-  background-color: #fafafa;
+  background-color: $white;
   margin-top: 5px;
+  padding-bottom: 1px;
   border-radius: 20px 20px 0px 0px;
 }

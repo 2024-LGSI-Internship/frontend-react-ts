@@ -1,7 +1,7 @@
 import React from 'react'
 import { useAppSelector,useAppDispatch } from '../hooks'
 import { selectStatus, selectController, selectChat, selectCalendar } from '../redux/reducers/PageReducer'
-import '../styles/footer.css'
+import '../styles/footer.scss'
 
 export default function Footer() {
   const footerIcons = ['bi-house-door-fill', 'bi-toggle-on', 'bi-chat-dots-fill', 'bi-calendar2-date-fill']
