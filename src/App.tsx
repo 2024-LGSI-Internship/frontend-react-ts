@@ -1,38 +1,15 @@
 /*eslint-disable*/
 import './styles/App.scss';
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import Status from './components/Status';
-import Controller from './components/Controller';
-import Chat from './components/Chat';
-import Calendar from './components/Calendar';
-import Footer from './components/Footer';
-import Header from './components/Header';
-import { useAppSelector,useAppDispatch } from './hooks';
+import React from 'react';
+import Dashboard from './components/Dashboard';
+import Interface from './components/Interface';
 
 function App() {
-  const dispatch = useAppDispatch();
-  const showPages = useAppSelector((state) => state.page.value)
-  console.log(`reducer: page ${showPages} rendered`)
-
-  const choosePages = () => {
-    switch (showPages) {
-      case (1):
-        return <Status />
-      case (2):
-        return <Controller />
-      case (3):
-        return <Chat />
-      case (4):
-        return <Calendar/>
-    }
-  }
 
   return (
     <div className="App">
-      <Header/>
-      {choosePages()}
-      <Footer/>
+      <Interface/>
+      <Dashboard/>
     </div>
   );
 }

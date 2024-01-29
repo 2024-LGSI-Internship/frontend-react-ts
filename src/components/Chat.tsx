@@ -69,7 +69,7 @@ export default function Chat() {
             </div>
           </div>
           {i === (inputCount - 1) ?
-            (<div className="chat answer">
+            (<div className="chat answer recent">
               <span className='chat answer name'>AI</span>
               {chatResponse === 'loading' && //loading then show spinner
               <div className='chat answer loading'>

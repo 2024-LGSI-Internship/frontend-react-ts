@@ -44,7 +44,7 @@ export default function Controller() {
         </div>
         <div className="container control-container mt-4 mx-2 control-1">
           <span className='fs-6 fw-light'>Mode</span>
-          <p className='fs-2 fw-bolder'>{stat.userMode==='heating'?'HEAT':'AC'}</p>
+          <p className='fs-2 fw-bolder'>{stat.userMode === 'heating'?'HEAT':'AC'}</p>
           <div className="container">
             <button className="btn btn-lg btn-control mx-1" type="button" value={'heating'} onClick={handleUserMode}>HEAT</button>
             <button className="btn btn-lg btn-control mx-1" type="button" value={'air-conditioning'} onClick={handleUserMode}>AC</button>

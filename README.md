@@ -6,6 +6,7 @@
 - Typescript, HTML, SCSS
 - http-proxy-middleware
 - Bootstrap 5
+- Chart.js
 
 ## FE Plans
 - **Listing Required Features**
@@ -52,3 +53,4 @@
 - `npm i @reduxjs/toolkit react-redux`
 - `npm i @types/node @types/react @types/react-dom @types/jest`
 - `npm i node-sass`
+- `npm i react-chartjs-2 chart.js`

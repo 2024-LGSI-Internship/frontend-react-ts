@@ -1,5 +1,6 @@
 import React from 'react'
-import lg_logo from '../assets/lg-logo-black-and-white.png' 
+import lg_logo from '../assets/lg-logo-black-and-white.png';
+import '../styles/header.scss';
 
 export default function Header() {
   return (

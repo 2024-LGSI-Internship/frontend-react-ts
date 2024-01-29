@@ -5,7 +5,7 @@ import '../styles/footer.scss'
 
 export default function Footer() {
   const footerIcons = ['bi-house-door-fill', 'bi-toggle-on', 'bi-chat-dots-fill', 'bi-calendar2-date-fill']
-  const footerText = ['AC Status', 'Control', 'AI Chat', 'Calendar'];
+  const footerText = ['Status', 'Control', 'AI Q&A', 'Calendar'];
   const handlePage = [selectStatus(), selectController(), selectChat(), selectCalendar()];
 
   const showPages = useAppSelector(state=>state.page.value)

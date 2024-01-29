@@ -15,7 +15,18 @@ export default function Status() {
   });
 
   return (
-    <div>
+    <div className="status">
+      <div className='container status-info ai mt-4 mb-4 status-1'>
+        <div className="d-flex">
+          <div className='info-icon ai'>
+            <i className="bi bi-lightbulb"></i>
+          </div>
+          <div className="status-content">
+            <span className='fs-6 fw-light'>Smart Recommendation</span>
+            <p className='fs-3 fw-bolder'>19℃</p>
+          </div>
+        </div>
+      </div>
       <div className='container status-info mt-4 mb-4 status-1'>
         <div className="d-flex">
           <div className='info-icon'>

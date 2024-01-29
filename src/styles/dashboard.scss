@@ -1,0 +1,83 @@
+@import '../styles/colors.scss';
+
+.dashboard {
+    text-align: center;
+    position: relative;
+    height: 800px;
+    width: 1100px;
+    background-color: rgb(234, 238, 238);
+    box-shadow: 0px 5px 10px 0px rgba(47, 47, 47, 0.5);
+    border-radius: 20px;
+    margin: 3% 0% 0% 3%;
+    &-header{
+        background-color: $white;
+        padding: 10px 0px 1px 0px;
+        border-radius: 20px 20px 0px 0px;
+        border-bottom: solid gray 0.1px;
+        &-title{
+            font-weight:600;
+        }
+    }
+    &-footer{
+        position: absolute;
+        bottom:0;
+        background-color: $white;
+        border-radius: 0px 0px 20px 20px;
+        border-top: solid gray 0.1px;
+        &-btn{
+            --bs-btn-color: rgba(0, 0, 0, 0.683);
+            --bs-btn-hover-color: black;
+            --bs-btn-active-border-color: rgba(255, 255, 255, 0);
+            &-text {
+                font-weight: 500;
+                font-size: 12px;
+            }
+        }
+        &-bi {
+            font-size: 35px;
+        }
+    }
+    &-chart{
+        animation: fadeIn .8s ease-in forwards;
+        background-color: $white;
+        border-radius: 20px;
+        margin: 20px;
+        padding: 20px;
+    }
+    &-content{
+        animation: fadeIn .8s ease-in forwards;
+        margin:0px 20px 5px 20px;
+        background-color: $white;
+        border-radius:20px;
+        display: flex;  
+        justify-content: space-between;
+    }
+    &-container {
+        width:100%;
+        &.center{
+            border-right: 0.1px solid rgba(128, 128, 128, 0.445);
+            border-left: 0.1px solid rgba(128, 128, 128, 0.445);
+        }
+    }
+}
+
+.temp{
+    font-weight:600;
+    font-size:20px;
+}
+
+.mark{
+    height:20px;
+    width:20px;
+    border-radius:50%;
+    box-shadow: 0px 1px 3px 1px rgba(47, 47, 47, 0.236);
+    &-1{
+        background-color: rgb(106, 224, 144);
+    }
+    &-2{
+        background-color: rgb(235, 134, 134);
+    }
+    &-3{
+        background-color: rgb(68, 141, 219);
+    }
+}

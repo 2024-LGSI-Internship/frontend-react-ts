@@ -74,24 +74,12 @@ body {
   display:flex;
   justify-content: center;
   align-content: center;
-  background-color: #a5c2d3;
+  // background-color: #a5c2d3;
   font-family: 'Poppins', sans-serif;
+  background: linear-gradient(220deg,#95c6e0, #84b0c9, #95c6e0);
+  background-attachment: fixed;
 }
 
 .App {
-  position: relative;
-  text-align: center;
-  height: 800px;
-  width: 450px;
-  background-color: rgb(234, 238, 238);
-  box-shadow: 0px 5px 10px 0px rgba(47, 47, 47, 0.5);
-  border-radius: 20px;
-  margin-top: 10%;
-}
-
-.Header {
-  background-color: $white;
-  margin-top: 5px;
-  padding-bottom: 1px;
-  border-radius: 20px 20px 0px 0px;
+  display: flex;
 }
