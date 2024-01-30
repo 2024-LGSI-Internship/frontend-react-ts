@@ -2,7 +2,7 @@ import React from 'react'
 import { useState, useEffect, useRef } from 'react';
 import '../styles/chat.scss'
 import { useAppSelector, useAppDispatch } from '../hooks'
-import { getChatData, postChatData, saveUserInput } from '../redux/reducers/ChatReducer';
+import { postChatData, saveUserInput } from '../redux/reducers/ChatReducer';
 
 export default function Chat() {
   //for debugging
@@ -54,7 +54,7 @@ export default function Chat() {
     if (userInput !== '') {
       dispatch(saveUserInput(userInput));
       dispatch(postChatData(userInput));
-      dispatch(getChatData());
+      // dispatch(getChatData());
     }
   }
   const renderChat = () => {

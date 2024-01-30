@@ -6,13 +6,14 @@ import '../styles/status.scss'
 
 export default function Status() {
   let userStat = useAppSelector(state => { return state.status.userData });
+  let aiTemp = useAppSelector(state => { return state.status.aiTemp });
   let curStat = useAppSelector(state => { return state.status.curData });
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(getUserData());
     dispatch(getCurData());
-  });
+  },[]);
 
   return (
     <div className="status">
@@ -23,7 +24,7 @@ export default function Status() {
           </div>
           <div className="status-content">
             <span className='fs-6 fw-light'>Smart Recommendation</span>
-            <p className='fs-3 fw-bolder'>19℃</p>
+            <p className='fs-3 fw-bolder'>{aiTemp}℃</p>
           </div>
         </div>
       </div>

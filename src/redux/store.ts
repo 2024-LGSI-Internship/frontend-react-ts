@@ -2,11 +2,13 @@ import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import { pageSlice } from "./reducers/PageReducer";
 import { statusSlice } from "./reducers/StatusReducer";
 import chatSlice from "./reducers/ChatReducer";
+import { dashboardSlice } from "./reducers/DashboardReducer";
 
 const rootReducer = combineReducers({
   page: pageSlice.reducer,
   status: statusSlice.reducer,
   chat: chatSlice.reducer,
+  dashboard: dashboardSlice.reducer,
 });
 
 const store = configureStore({

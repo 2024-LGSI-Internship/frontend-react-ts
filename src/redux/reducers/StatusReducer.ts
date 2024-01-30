@@ -47,6 +47,7 @@ interface curDataState{
 interface statusState{
   userData: userDataState,
   curData: curDataState,
+  aiTemp: number,
   getUserResponse: string,
   getCurResponse: string,
   postUserResponse: string
@@ -69,6 +70,7 @@ const initialState: statusState = {
       curTemp: 0,
       curHumid: 0,
     },
+    aiTemp: 0,
     getUserResponse: 'None',
     getCurResponse: 'None',
     postUserResponse: 'None',
@@ -78,6 +80,12 @@ export const statusSlice = createSlice({
   name: "status",
   initialState,
   reducers: { //동기 작업
+    changeTempFromDashboard: (state, action: PayloadAction<any>) => {
+      const temps = action.payload;
+      state.userData.userTemp = temps.target;
+      state.curData.curTemp = temps.current;
+      state.aiTemp = temps.pred;
+    },
     changeUserTemp: (state, action: PayloadAction<number>) => { //action : reducer에 전달하는 인자
       let temp = state.userData.userTemp + action.payload;
       if(temp >= 18 && temp <= 30)
@@ -144,5 +152,5 @@ export const statusSlice = createSlice({
   }
 });
 
-export const { changeUserTemp, changeUserMode,changeUserWindAngle, changeUserWindStrength } = statusSlice.actions;
+export const { changeTempFromDashboard, changeUserTemp, changeUserMode,changeUserWindAngle, changeUserWindStrength } = statusSlice.actions;
 export default statusSlice

@@ -1,7 +1,10 @@
 import '../styles/dashboard.scss';
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
 import { Line } from 'react-chartjs-2';
+import { getPredArr, getPredData } from '../redux/reducers/DashboardReducer';
+import { useAppDispatch, useAppSelector } from '../hooks';
+import { changeTempFromDashboard } from '../redux/reducers/StatusReducer';
 
 ChartJS.register(
   CategoryScale,
@@ -13,7 +16,7 @@ ChartJS.register(
   Legend
 );
 
-export const options = {
+const options = {
   responsive: true,
   plugins: {
     legend: {
@@ -27,8 +30,6 @@ export const options = {
   },
 };
 
-let labels = ['1','2','3','4','5','6','7'];
-let datas = [[19,20,18,18,18,22,23], [18,20,19,19,18,20,21], [25, 26, 27, 30, 29, 28, 28]];
 const colors = {
   red: 'rgb(235, 134, 134)',
   red_bg: 'rgba(255, 99, 132, 0.5)',
@@ -39,41 +40,79 @@ const colors = {
 }
 
 export default function Dashboard() {
-  const [render, setRender] = useState(0);
-  
-  const handleNewData = () => {
-    for (let i = 0; i < 3; i++) {
-      const rand = Math.floor(Math.random() * (30 - 18 + 1)) + 18;
-      datas[i] = [...datas[i], rand];
-    }
-    labels = [...labels, 'new'];
-    setRender(render+1);
-  }
-  console.log('rerender dashboard');
 
-  const data = {
-  labels,
-  datasets: [
+  const dispatch = useAppDispatch();
+  const target = useAppSelector(state => { return state.dashboard.target });
+  const pred = useAppSelector(state => { return state.dashboard.pred });
+  const current = useAppSelector(state => { return state.dashboard.current });
+  const [toggleLines, setToggleLines] = useState([true, true, true]);
+
+  let labels = Array.from({ length: pred.length }, (v, i) => i + 1);
+  const tempSets = [
     {
       label: 'Actual User Set Temperature',
-      data: datas[0],
+      data: target,
       borderColor: colors.green,
       backgroundColor: colors.green_bg,
     },
     {
       label: 'Predicted User Set Temperature',
-      data: datas[1],
+      data: pred,
       borderColor: colors.red,
       backgroundColor: colors.red_bg,
     },
     {
       label: 'Current Room Temperature',
-      data: datas[2],
+      data: current,
       borderColor: colors.blue,
       backgroundColor: colors.blue_bg,
     },
-  ],
-};
+  ];
+
+  const [render, setRender] = useState(0);
+
+  useEffect(() => {
+    console.log('dashboard mounted');
+    dispatch(getPredArr());
+  }, [])
+
+  useEffect(() => {
+    const temps = { current: current.at(-1), pred: pred.at(-1), target: target.at(-1) };
+    console.log(`changeTempFromDashboard ${temps}`);
+    dispatch(changeTempFromDashboard(temps));
+  }, [current, pred, target, dispatch]);
+  
+  const handleNewData = () => {
+    dispatch(getPredData());
+   
+    const num:any = labels.at(-1);
+    labels = [...labels, num + 1];
+    setRender(render + 1);
+  }
+
+  const data = {
+    labels,
+    datasets: tempSets.filter((tempSet, i) => {
+      if (toggleLines[i] === true)
+        return tempSet;
+    })
+  };
+
+  const toggleTarget = () => {
+    const temp = [...toggleLines];
+    temp[0] = !temp[0]
+    setToggleLines(temp)
+  }
+  const togglePred = () => {
+    const temp = [...toggleLines];
+    temp[1] = !temp[1]
+    setToggleLines(temp)
+  }
+  const toggleCurrent = () => {
+    const temp = [...toggleLines];
+    temp[2] = !temp[2]
+    setToggleLines(temp)
+  }
 
   return (
     <div className="dashboard">
@@ -84,26 +123,26 @@ export default function Dashboard() {
         <Line options={options} data={data} />
       </div>
       <div className="dashboard-content">
-        <div className="dashboard-container">
+        <div className="dashboard-container" onClick={toggleTarget}>
           <div className='mt-4 d-flex justify-content-center'>
             <div className="mark mark-1 mx-2"></div>
             <span className='fw-light'><span className='fw-bolder'>Actual</span> User Set Temperature</span>
           </div>
-          <p className="temp">{datas[0].at(-1)}℃</p>
+          <p className="temp">{target.at(-1)}℃</p>
         </div>
-        <div className="dashboard-container center">
+        <div className="dashboard-container center" onClick={togglePred}>
           <div className='mt-4 d-flex justify-content-center'>
             <div className="mark mark-2 mx-2"></div>
             <span className='fw-light'><span className='fw-bolder'>Predicted</span> User Set Temperature</span>
           </div>
-          <p className="temp">{datas[1].at(-1)}℃</p>
+          <p className="temp">{pred.at(-1)}℃</p>
         </div>
-        <div className="dashboard-container">
+        <div className="dashboard-container" onClick={toggleCurrent}>
         <div className='mt-4 d-flex justify-content-center'>
           <div className="mark mark-3 mx-2"></div>
           <span className='fw-light'>Current Room Temperature</span>
         </div>
-          <p className="temp">{datas[2].at(-1)}℃</p>
+          <p className="temp">{current.at(-1)}℃</p>
         </div>
       </div>
       <div className="container dashboard-footer">
