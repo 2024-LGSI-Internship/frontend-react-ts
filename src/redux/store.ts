@@ -3,12 +3,14 @@ import { pageSlice } from "./reducers/PageReducer";
 import { statusSlice } from "./reducers/StatusReducer";
 import chatSlice from "./reducers/ChatReducer";
 import dashboardSlice from "./reducers/DashboardReducer";
+import calendarSlice from "./reducers/CalendarReducer";
 
 const rootReducer = combineReducers({
   page: pageSlice.reducer,
   status: statusSlice.reducer,
   chat: chatSlice.reducer,
   dashboard: dashboardSlice.reducer,
+  calendar: calendarSlice.reducer,
 });
 
 const store = configureStore({

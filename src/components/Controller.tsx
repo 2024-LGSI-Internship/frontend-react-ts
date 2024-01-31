@@ -2,12 +2,14 @@ import React, { useState } from 'react'
 import { useAppDispatch,useAppSelector } from '../hooks';
 import { changeUserTemp, changeUserMode, postUserData, changeUserWindAngle, changeUserWindStrength } from '../redux/reducers/StatusReducer';
 import '../styles/controller.scss'
+import { addNewReserve } from '../redux/reducers/CalendarReducer';
 
 
 
 export default function Controller(props: any) {
   const [showToast, setShowToast] = useState(false);
   const stat = useAppSelector(state => state.status.userData);
+  const isControl = useAppSelector(state => state.page.value);
   const dispatch = useAppDispatch();
 
   const handleUserTemp = (e: any) => {
@@ -27,14 +29,14 @@ export default function Controller(props: any) {
     dispatch(changeUserWindStrength(parseInt(e.currentTarget.value)));
   }
   const handleSave = () => {
-    // isControl === 1 : Controller
-    // isControl === 0 : Calendar Custom Settings
-    if(props.isControl===1){   
+    if(isControl===2){       // isControl === 2 : Controller
       dispatch(postUserData(stat));
       setShowToast(true);
     }
-    else {
-      
+    else {    // isControl === 4 : Calendar Custom Settings
+      dispatch(addNewReserve({month: props.month, day: props.day}));
+      props.handleToggleModal(); //show off Modal from Calendar.tsx
+      props.handleToggleToast(); //show Toast from Calendar.tsx
     }
   }
   

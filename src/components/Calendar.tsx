@@ -1,36 +1,28 @@
-import React, { useState } from 'react'
+import React, { useState,useCallback } from 'react'
 import '../styles/calendar.scss'
 import Controller from './Controller';
+import { useAppSelector } from '../hooks';
 
 const monthName = ['', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'Octboer', 'November', 'December']
 const month = [31, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
 const disabledDays = [0, 31, 28, 25, 31, 28, 26, 30, 28, 32, 29, 27, 31, 29];
 
-interface dayReserve{
-  day: number,
-  time: string[],
-}
-
-interface Reserve{
-  month: number,
-  days: dayReserve[],
-}
-
-
 export default function Calendar() {
   const [curMonth, setCurMonth] = useState(1);
   const [selectedDay, setSelectedDay] = useState(0);
   const [showModal, setShowModal] = useState(false);
+  const [showToast, setShowToast] = useState(false);
+  const schedule = useAppSelector(state => state.calendar.schedule);
 
-  const [custom, setCustom] = useState<Reserve[]>(
-    [{
-      month: 1,
-      days:
-        [{ day: 23, time: ['18:30-24:00', ] },]
-    },
-    ])
-  // const [customDays, setCustomDays] = useState([23, 24, 25, 26]);
-  // const [customTimes, setCustomTimes] = useState(['18:30-24:00', '24:00-04:00', '14:30-17:30', '17:30-19:30']);
+  const getDayReserves = useCallback((m: number) => {
+    const monthReserves = schedule.findIndex(obj => obj.month === m)
+    let dayReserves: any[];
+    if (monthReserves !== -1)
+      dayReserves = schedule[monthReserves].days;
+    else
+      dayReserves = [];
+    return dayReserves;
+  }, [schedule]);
 
   const renderCalDays = (m:number) => {
     let arr = [];
@@ -39,29 +31,30 @@ export default function Calendar() {
         <button className="btn cal-btn-disabled" type="button">{i}</button>
       );
     }
+    const dayReserves = getDayReserves(m);
 
-  for (let i = 1; i <= month[m]; i++){
-    const calClass = ((i in custom[custom.findIndex(obj=>obj.month===m)].days) ? 'btn cal-btn-custom' : 'btn cal-btn');
-    arr.push(
-      <button className={calClass} type="button" value={i} onClick={handleCustomSchedule}>{i}</button>
-      );
-    }
+    for (let i = 1; i <= month[m]; i++){
+      const calClass = (dayReserves.some((obj) => { return obj.day === i }) ? 'btn cal-btn-custom' : 'btn cal-btn');
+      arr.push(
+        <button className={calClass} type="button" value={i} onClick={handleCustomSchedule}>{i}</button>
+        );
+      }
     return arr;
   }
 
-  const renderReserve = (m:number) => {
+  const renderReserve = (m: number) => {
     let arr = [];
-    const days = custom[custom.findIndex(obj => obj.month === m)].days;
-    for (let i = 0; i < days.length; i++) {
-      for (let j = 0; j < days[i].time.length;j++)
+    const dayReserves = getDayReserves(m);
+    for (let i = 0; i < dayReserves.length; i++) {
+      for (let j = 0; j < dayReserves[i].time.length;j++)
       arr.push(
         <div className="d-flex">
           <div className='cal-custom-date'>
-            {days[i].day}
+            {dayReserves[i].day}
           </div>
           <div className="cal-custom-content">
             <span className='fs-6 fw-light'>running time</span>
-            <p className='fs-5 fw-bolder'>{days[i].time[j]}</p>
+            <p className='fs-5 fw-bolder'>{dayReserves[i].time[j]}</p>
           </div>
         </div>
       );
@@ -72,6 +65,10 @@ export default function Calendar() {
   const handleToggleModal = () => {
     setShowModal(!showModal);
   };
+
+  const handleToggleToast = () => {
+    setShowToast(!showToast);
+  }
 
   const handleCustomSchedule = (e:any) => {
     handleToggleModal();
@@ -119,7 +116,17 @@ export default function Calendar() {
         <p className="cal-custom-title border-bottom border-1 mb-3">your Reservations</p>
         {renderReserve(curMonth)}
       </div>
-      {showModal && <Modal custom={custom} setCustom={setCustom} month={curMonth} day={selectedDay} toggle={handleToggleModal} />}
+      {showModal && <Modal month={curMonth} day={selectedDay} handleToggleModal={handleToggleModal} handleToggleToast={handleToggleToast} />}
+      {showToast &&
+        <div className="toast show align-items-center toast-save" role="alert" aria-live="assertive" aria-atomic="true">
+          <div className="d-flex">
+            <div className="toast-body">
+              Your AC settings are saved!
+            </div>
+            <button type="button" className="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close" onClick={()=>setShowToast(false)}></button>
+          </div>
+        </div>
+      }
     </div>
   )
 }
@@ -133,10 +140,10 @@ function Modal(props: any) {
         <div className="modal-content">
           <div className="modal-header">
             <h5 className="modal-title">Set your Custom Schedule</h5>
-            <button type="button" className="btn-close" onClick={props.toggle}></button>
+            <button type="button" className="btn-close" onClick={props.handleToggleModal}></button>
           </div>
             <div className="modal-body">
-              <Controller isControl={0} month={props.month} day={props.day} />
+              <Controller month={props.month} day={props.day} handleToggleModal={props.handleToggleModal} handleToggleToast={props.handleToggleToast} />
           </div>
         </div>
       </div>

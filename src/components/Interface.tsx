@@ -17,11 +17,11 @@ export default function Interface() {
       case (1):
         return <Status />
       case (2):
-        return <Controller isControl={1} />
+        return <Controller />
       case (3):
         return <Chat />
       case (4):
-        return <Calendar/>
+        return <Calendar />
     }
   }
 

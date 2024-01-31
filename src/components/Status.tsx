@@ -1,7 +1,6 @@
 import React from 'react'
 import { useAppDispatch,useAppSelector } from '../hooks';
-import { useEffect } from 'react';
-import { applyAiTemp, getCurData, getUserData } from '../redux/reducers/StatusReducer';
+import { applyAiTemp } from '../redux/reducers/StatusReducer';
 import '../styles/status.scss'
 
 export default function Status() {
@@ -10,13 +9,6 @@ export default function Status() {
   let aiTemp = useAppSelector(state => { return state.status.aiTemp });
   let curStat = useAppSelector(state => { return state.status.curData });
   const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    if (isPredict === false) {
-      dispatch(getUserData());
-      dispatch(getCurData());
-    }
-  }, [dispatch, isPredict]);
 
   return (
     <div className="status">
@@ -27,8 +19,8 @@ export default function Status() {
           </div>
           <div className="status-content">
             <span className='fs-6 fw-light'>Smart Recommendation</span>
-            <p className='fs-3 fw-bolder'>{aiTemp}℃</p>
-            <button className='btn btn-apply' onClick={()=>dispatch(applyAiTemp())}>Apply</button>
+            <p className='fs-3 fw-bolder'>{isPredict ? `${aiTemp}℃`:'OFF'}</p>
+            <button className={`btn btn-apply ${isPredict?'':'disabled'}`} onClick={()=>dispatch(applyAiTemp())}>Apply</button>
           </div>
         </div>
       </div>
@@ -72,7 +64,7 @@ export default function Status() {
           </div>
         </div>
       </div>
-      <div className='container status-info status-3'>
+      <div className='container status-info mb-5 status-3'>
         <div className="d-flex">
           <div className='info-icon'>
             <i className="bi bi-arrows-move"></i>

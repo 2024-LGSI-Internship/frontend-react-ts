@@ -46,9 +46,7 @@ const colors = {
 }
 
 export default function Dashboard() {
-
   const dispatch = useAppDispatch();
-  const [render, setRender] = useState(0);
   const isPredict = useAppSelector(state => { return state.dashboard.isPredict });
   const target = useAppSelector(state => { return state.dashboard.target });
   const pred = useAppSelector(state => { return state.dashboard.pred });
@@ -62,26 +60,28 @@ export default function Dashboard() {
   const diff = Math.abs(target.at(-1)! - pred.at(-1)!).toFixed(1);
   let labels = Array.from({ length: pred.length }, (v, i) => i + 1);
 
-  const tempSets = [
-    {
-      label: 'Actual User Set Temperature',
-      data: target,
-      borderColor: colors.green,
-      backgroundColor: colors.green_bg,
-    },
-    {
-      label: 'Predicted User Set Temperature',
-      data: pred,
-      borderColor: colors.red,
-      backgroundColor: colors.red_bg,
-    },
-    {
-      label: 'Current Room Temperature',
-      data: current,
-      borderColor: colors.blue,
-      backgroundColor: colors.blue_bg,
-    },
-  ];
+  const tempSets = useMemo(() => {
+    return [
+      {
+        label: 'Actual User Set Temperature',
+        data: target,
+        borderColor: colors.green,
+        backgroundColor: colors.green_bg,
+      },
+      {
+        label: 'Predicted User Set Temperature',
+        data: pred,
+        borderColor: colors.red,
+        backgroundColor: colors.red_bg,
+      },
+      {
+        label: 'Current Room Temperature',
+        data: current,
+        borderColor: colors.blue,
+        backgroundColor: colors.blue_bg,
+      },
+    ];
+  }, [target, pred, current]);
 
   const tempData = {
     labels,
@@ -94,7 +94,7 @@ export default function Dashboard() {
   useEffect(() => {
     console.log('dashboard mounted');
     dispatch(getPredArr());
-  }, [])
+  }, [dispatch])
 
   useEffect(() => {
     if (isPredict === true) {
@@ -108,7 +108,6 @@ export default function Dashboard() {
     //add new label
     const num: any = labels.at(-1);
     labels = [...labels, num + 1];
-    setRender(render + 1);
   }
 
   const handleToggleLines = (e: any) => {
