@@ -5,13 +5,14 @@ import '../styles/controller.scss'
 
 
 
-export default function Controller() {
+export default function Controller(props: any) {
   const [showToast, setShowToast] = useState(false);
   const stat = useAppSelector(state => state.status.userData);
   const dispatch = useAppDispatch();
 
   const handleUserTemp = (e: any) => {
-    dispatch(changeUserTemp(parseInt(e.currentTarget.value)));
+    const temp = parseInt(e.currentTarget.value);
+    dispatch(changeUserTemp(temp));
   }
 
   const handleUserMode = (e:any) => {
@@ -26,13 +27,26 @@ export default function Controller() {
     dispatch(changeUserWindStrength(parseInt(e.currentTarget.value)));
   }
   const handleSave = () => {
-    dispatch(postUserData(stat));
-    setShowToast(true);
+    // isControl === 1 : Controller
+    // isControl === 0 : Calendar Custom Settings
+    if(props.isControl===1){   
+      dispatch(postUserData(stat));
+      setShowToast(true);
+    }
+    else {
+      
+    }
   }
   
   return (
     <>
-    <div className="Controller">
+      <div className="Controller">
+        {!props.isControl &&
+          <div className="container control-container mt-4 mx-2 control-1">
+            <span className='fs-6 fw-light'>Date</span>
+            <p className='fs-2 fw-bold'>2024 / {props.month} / {props.day}</p>
+          </div>
+        }
       <div className='container d-flex'> 
         <div className="container control-container mt-4 mx-2 control-1">
           <span className='fs-6 fw-light'>Set Temperature</span>
@@ -71,7 +85,7 @@ export default function Controller() {
           </div>
         </div>
       <div className='container mt-4 control-3'>
-        <button className="btn btn-save" type="button" onClick={handleSave}>Save Settings</button>
+          <button className="btn btn-save" type="button" value={props.isControl} onClick={handleSave}>Save Settings</button>
       </div>
     </div>
       {showToast &&
@@ -80,7 +94,7 @@ export default function Controller() {
             <div className="toast-body">
               Your AC settings are saved!
             </div>
-            <button type="button" className="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            <button type="button" className="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close" onClick={()=>setShowToast(false)}></button>
           </div>
         </div>
       }

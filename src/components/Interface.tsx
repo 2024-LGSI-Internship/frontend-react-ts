@@ -17,7 +17,7 @@ export default function Interface() {
       case (1):
         return <Status />
       case (2):
-        return <Controller />
+        return <Controller isControl={1} />
       case (3):
         return <Chat />
       case (4):

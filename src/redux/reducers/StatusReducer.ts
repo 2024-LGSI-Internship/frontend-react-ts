@@ -80,6 +80,9 @@ export const statusSlice = createSlice({
   name: "status",
   initialState,
   reducers: { //동기 작업
+    applyAiTemp: (state) => {
+      state.userData.userTemp = Math.floor(state.aiTemp);
+    },
     changeTempFromDashboard: (state, action: PayloadAction<any>) => {
       const temps = action.payload;
       state.userData.userTemp = temps.target;
@@ -87,7 +90,10 @@ export const statusSlice = createSlice({
       state.aiTemp = temps.pred;
     },
     changeUserTemp: (state, action: PayloadAction<number>) => { //action : reducer에 전달하는 인자
+      // console.log(typeof (state.userData.userTemp));
+      // console.log(typeof (action.payload));
       let temp = state.userData.userTemp + action.payload;
+      console.log(temp);
       if(temp >= 18 && temp <= 30)
         state.userData.userTemp += action.payload;
     },
@@ -127,8 +133,9 @@ export const statusSlice = createSlice({
     .addCase(getUserData.pending, (state) => {
       state.getUserResponse = 'loading'; 
     })
-    .addCase(getUserData.fulfilled, (state, action) => {
-      console.log(action.payload)
+      .addCase(getUserData.fulfilled, (state, action) => {
+      action.payload.userTemp = parseInt(action.payload.userTemp);
+      // console.log(action.payload)
       // console.log(typeof(state.userData))
       Object.assign(state.userData, action.payload);
       state.getUserResponse = 'complete';
@@ -152,5 +159,5 @@ export const statusSlice = createSlice({
   }
 });
 
-export const { changeTempFromDashboard, changeUserTemp, changeUserMode,changeUserWindAngle, changeUserWindStrength } = statusSlice.actions;
+export const { changeTempFromDashboard, changeUserTemp, changeUserMode,changeUserWindAngle, changeUserWindStrength, applyAiTemp } = statusSlice.actions;
 export default statusSlice

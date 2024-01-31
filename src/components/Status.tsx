@@ -1,19 +1,22 @@
 import React from 'react'
 import { useAppDispatch,useAppSelector } from '../hooks';
 import { useEffect } from 'react';
-import { getCurData, getUserData } from '../redux/reducers/StatusReducer';
+import { applyAiTemp, getCurData, getUserData } from '../redux/reducers/StatusReducer';
 import '../styles/status.scss'
 
 export default function Status() {
+  const isPredict = useAppSelector(state => { return state.dashboard.isPredict });
   let userStat = useAppSelector(state => { return state.status.userData });
   let aiTemp = useAppSelector(state => { return state.status.aiTemp });
   let curStat = useAppSelector(state => { return state.status.curData });
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(getUserData());
-    dispatch(getCurData());
-  },[]);
+    if (isPredict === false) {
+      dispatch(getUserData());
+      dispatch(getCurData());
+    }
+  }, [dispatch, isPredict]);
 
   return (
     <div className="status">
@@ -25,6 +28,7 @@ export default function Status() {
           <div className="status-content">
             <span className='fs-6 fw-light'>Smart Recommendation</span>
             <p className='fs-3 fw-bolder'>{aiTemp}℃</p>
+            <button className='btn btn-apply' onClick={()=>dispatch(applyAiTemp())}>Apply</button>
           </div>
         </div>
       </div>

@@ -1,8 +1,8 @@
 import '../styles/dashboard.scss';
-import React, { useState,useEffect } from 'react';
+import React, { useState,useEffect, useMemo } from 'react';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
 import { Line } from 'react-chartjs-2';
-import { getPredArr, getPredData } from '../redux/reducers/DashboardReducer';
+import { changeIsPredict, getPredArr, getPredData } from '../redux/reducers/DashboardReducer';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { changeTempFromDashboard } from '../redux/reducers/StatusReducer';
 
@@ -20,7 +20,7 @@ const options = {
   responsive: true,
   plugins: {
     legend: {
-      display: false,
+      display: true,
       position: 'top' as const,
     },
     // title: {
@@ -28,6 +28,12 @@ const options = {
     //   text: 'Prediction Line Chart',
     // },
   },
+  scales: {
+    y: {
+        max: 30,
+        min: 18,
+      },
+    },
 };
 
 const colors = {
@@ -42,12 +48,20 @@ const colors = {
 export default function Dashboard() {
 
   const dispatch = useAppDispatch();
+  const [render, setRender] = useState(0);
+  const isPredict = useAppSelector(state => { return state.dashboard.isPredict });
   const target = useAppSelector(state => { return state.dashboard.target });
   const pred = useAppSelector(state => { return state.dashboard.pred });
   const current = useAppSelector(state => { return state.dashboard.current });
   const [toggleLines, setToggleLines] = useState([true, true, true]);
 
+  const temps = useMemo(() => {
+    return {current: current.at(-1), pred: pred.at(-1), target: target.at(-1)}
+  },[current, pred, target]);
+
+  const diff = Math.abs(target.at(-1)! - pred.at(-1)!).toFixed(1);
   let labels = Array.from({ length: pred.length }, (v, i) => i + 1);
+
   const tempSets = [
     {
       label: 'Actual User Set Temperature',
@@ -69,28 +83,7 @@ export default function Dashboard() {
     },
   ];
 
-  const [render, setRender] = useState(0);
-
-  useEffect(() => {
-    console.log('dashboard mounted');
-    dispatch(getPredArr());
-  }, [])
-
-  useEffect(() => {
-    const temps = { current: current.at(-1), pred: pred.at(-1), target: target.at(-1) };
-    console.log(`changeTempFromDashboard ${temps}`);
-    dispatch(changeTempFromDashboard(temps));
-  }, [current, pred, target, dispatch]);
-  
-  const handleNewData = () => {
-    dispatch(getPredData());
-   
-    const num:any = labels.at(-1);
-    labels = [...labels, num + 1];
-    setRender(render + 1);
-  }
-
-  const data = {
+  const tempData = {
     labels,
     datasets: tempSets.filter((tempSet, i) => {
       if (toggleLines[i] === true)
@@ -98,20 +91,31 @@ export default function Dashboard() {
     })
   };
 
-  const toggleTarget = () => {
-    const temp = [...toggleLines];
-    temp[0] = !temp[0]
-    setToggleLines(temp)
+  useEffect(() => {
+    console.log('dashboard mounted');
+    dispatch(getPredArr());
+  }, [])
+
+  useEffect(() => {
+    if (isPredict === true) {
+      console.log('changeTempFromDashboard called');
+      dispatch(changeTempFromDashboard(temps));
+    }
+  }, [isPredict, temps, dispatch]);
+  
+  const handleNewData = () => {
+    dispatch(getPredData()); //get data from server
+    //add new label
+    const num: any = labels.at(-1);
+    labels = [...labels, num + 1];
+    setRender(render + 1);
   }
-  const togglePred = () => {
+
+  const handleToggleLines = (e: any) => {
+    const val = parseInt(e.currentTarget.value);
     const temp = [...toggleLines];
-    temp[1] = !temp[1]
-    setToggleLines(temp)
-  }
-  const toggleCurrent = () => {
-    const temp = [...toggleLines];
-    temp[2] = !temp[2]
-    setToggleLines(temp)
+    temp[val] = !temp[val];
+    setToggleLines(temp);
   }
 
   return (
@@ -120,36 +124,56 @@ export default function Dashboard() {
         <h3 className='dashboard-header-title'>AI Prediction Dashboard</h3>
       </div>
       <div className="dashboard-chart">
-        <Line options={options} data={data} />
+        <Line options={options} data={tempData} />
       </div>
       <div className="dashboard-content">
-        <div className="dashboard-container" onClick={toggleTarget}>
-          <div className='mt-4 d-flex justify-content-center'>
+        <button className='dashboard-container diff disabled'>
+          <div className='mt-3 d-flex justify-content-center'>
+            <span className='fw-light temp-title'>Difference in Set Temp</span>
+          </div>
+          <p className="temp">{diff}℃</p>
+        </button>
+        <button className={`dashboard-container actual ${toggleLines[0]?'active':'deactivated'}`} value={0} onClick={handleToggleLines}>
+          <div className='mt-3 d-flex justify-content-center'>
             <div className="mark mark-1 mx-2"></div>
-            <span className='fw-light'><span className='fw-bolder'>Actual</span> User Set Temperature</span>
+            <span className='fw-light temp-title marked'><span className='fw-bolder'>Actual</span> User Set Temp</span>
           </div>
-          <p className="temp">{target.at(-1)}℃</p>
-        </div>
-        <div className="dashboard-container center" onClick={togglePred}>
-          <div className='mt-4 d-flex justify-content-center'>
+          <p className="temp">{temps.target}℃</p>
+        </button>
+        <button className={`dashboard-container predicted ${toggleLines[1]?'active':'deactivated'}`} value={1} onClick={handleToggleLines}>
+          <div className='mt-3 d-flex justify-content-center'>
             <div className="mark mark-2 mx-2"></div>
-            <span className='fw-light'><span className='fw-bolder'>Predicted</span> User Set Temperature</span>
+            <span className='fw-light temp-title marked'><span className='fw-bolder'>Predicted</span> User Set Temp</span>
           </div>
-          <p className="temp">{pred.at(-1)}℃</p>
-        </div>
-        <div className="dashboard-container" onClick={toggleCurrent}>
-        <div className='mt-4 d-flex justify-content-center'>
-          <div className="mark mark-3 mx-2"></div>
-          <span className='fw-light'>Current Room Temperature</span>
-        </div>
-          <p className="temp">{current.at(-1)}℃</p>
-        </div>
+          <p className="temp">{temps.pred}℃</p>
+        </button>
+        <button className={`dashboard-container current ${toggleLines[2]?'active':'deactivated'}`} value={2} onClick={handleToggleLines}>
+          <div className='mt-3 d-flex justify-content-center'>
+            <div className="mark mark-3 mx-2"></div>
+            <span className='fw-light temp-title marked'>Current Room Temp</span>
+          </div>
+            <p className="temp">{temps.current}℃</p>
+        </button>
       </div>
       <div className="container dashboard-footer">
-        <button className="btn dashboard-footer-btn" type="button" onClick={handleNewData}>
-          <i className="dashboard-footer-bi bi bi-caret-right-fill"></i>
-          <span className='dashboard-footer-btn-text'>Predict</span>
-        </button>
+        {isPredict ? 
+          <>
+          <button className="btn dashboard-footer-btn" type="button" onClick={()=>dispatch(changeIsPredict(0))}>
+            <i className="dashboard-footer-bi bi bi-stop-fill"></i>
+            <span className='dashboard-footer-btn-text'>Stop Prediction</span>
+          </button>
+          <button className="btn dashboard-footer-btn" type="button" onClick={handleNewData}>
+            <i className="dashboard-footer-bi bi bi-caret-right-fill"></i>
+            <span className='dashboard-footer-btn-text'>See Next Prediction</span>
+          </button>
+          </>
+          :
+          <button className="btn dashboard-footer-btn" type="button" onClick={()=>dispatch(changeIsPredict(1))}>
+            <i className="dashboard-footer-bi bi bi-caret-right-fill"></i>
+            <span className='dashboard-footer-btn-text'>Start Prediction</span>
+          </button>
+        }
+
       </div>
     </div>
   )

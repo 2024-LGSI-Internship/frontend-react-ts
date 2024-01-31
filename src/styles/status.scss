@@ -6,7 +6,7 @@
     &-info {
         background-color: $white;
         padding: 25px 0px 8px 0px;
-        width: 400px;
+        width: 380px;
         border-radius: 15px;
         &.ai{
             background: radial-gradient(ellipse, $white, $white, $blue1);
@@ -42,5 +42,19 @@
             font-size: 35px;
             background-color: $blue2;
         }
+    }
+}
+
+.btn{
+    &-apply{
+        border-radius: 20%;
+        color: black;
+        background-color: $blue2;
+        --bs-btn-hover-bg: #{$blue3};
+        --bs-btn-active-bg: #{$blue4};
+        --bs-btn-active-border-color: #{$transparent};
+        position:absolute;
+        left:290px;
+        bottom:15px;
     }
 }

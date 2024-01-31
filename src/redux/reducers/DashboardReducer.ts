@@ -17,31 +17,39 @@ export const getPredData = createAsyncThunk('GET_PREDDATA',
 
 
 interface dashboardState{
-    target: number[],
-    pred: number[],
-    current: number[]
+  target: number[],
+  pred: number[],
+  current: number[],
+  isPredict: boolean
 }
 
 const initialState:dashboardState = {
-    target: [],
-    pred: [],
-    current: [],
+  target: [],
+  pred: [],
+  current: [],
+  isPredict: false,  
 }
 
-export const dashboardSlice = createSlice({
+const dashboardSlice = createSlice({
     name: 'dashboard',
     initialState,
     reducers: {
+      changeIsPredict: (state, action:PayloadAction<number>) => {
+        if (action.payload === 1)
+          state.isPredict = true;
+        else
+          state.isPredict = false;
+      }
     },
     extraReducers: (builder) => {
         builder
         .addCase(getPredArr.fulfilled, (state, action) => {
-            console.log(action.payload);
+            // console.log(action.payload);
             const res = action.payload;
             [state.target, state.pred, state.current] = [res.target, res.pred, res.current];
         })
         .addCase(getPredData.fulfilled, (state, action) => {
-            console.log(action.payload);
+            // console.log(action.payload);
             const res = action.payload;
             state.target = [...state.target, parseInt(res.target)];
             state.pred = [...state.pred, res.pred];
@@ -49,3 +57,5 @@ export const dashboardSlice = createSlice({
         })
     }
 })
+export const { changeIsPredict } = dashboardSlice.actions;
+export default dashboardSlice

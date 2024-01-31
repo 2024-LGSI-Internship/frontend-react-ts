@@ -4,11 +4,11 @@
     height: 700px;
     padding-bottom: 80px;
     overflow-y: auto;
-    &-ai{
+    &-custom{
         animation: slideUp 1.2s ease forwards;
         background-color: $white;
         padding: 10px 0px 10px 0px;
-        width: 400px;
+        width: 380px;
         border-radius: 15px;
         &-title{
             font-weight: 500;
@@ -31,7 +31,7 @@
     &-main{
         animation: slideUp .8s ease forwards;
         background-color: $white;
-        margin: 25px 25px 0px 25px;
+        margin: 25px 20px 0px 20px;
         border-radius: 15px;
     }
     &-month{
@@ -57,7 +57,7 @@
         padding: 0;
     }
     &-btn{
-        &-ai{
+        &-custom{
             display: flex;
             flex-shrink: 0;
             align-items: center;
@@ -85,6 +85,9 @@
 }
 
 .modal{
+    &-body{
+        background-color: rgb(234, 238, 238);
+    }
     animation: fadeIn .5s ease forwards;
     display: block;
     position: absolute;
