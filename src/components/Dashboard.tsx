@@ -36,13 +36,22 @@ const options = {
     },
 };
 
+// const colors = {
+//   red: 'rgb(235, 134, 134)',
+//   red_bg: 'rgba(255, 99, 132, 0.5)',
+//   blue: 'rgb(68, 141, 219)',
+//   blue_bg: 'rgba(68, 141, 219, 0.5)',
+//   green: 'rgb(106, 224, 144)',
+//   green_bg: 'rgba(106, 224, 144, 0.5)',
+// }
+
 const colors = {
-  red: 'rgb(235, 134, 134)',
-  red_bg: 'rgba(255, 99, 132, 0.5)',
-  blue: 'rgb(68, 141, 219)',
-  blue_bg: 'rgba(68, 141, 219, 0.5)',
-  green: 'rgb(106, 224, 144)',
-  green_bg: 'rgba(106, 224, 144, 0.5)',
+  darkTeal: '#1F484C',
+  darkTeal_bg: '#1F484C66',
+  teal: '#00CCC0',
+  teal_bg: '#00CCC066',
+  purple: '#7885FF',
+  purple_bg: '#7885FF66',
 }
 
 export default function Dashboard() {
@@ -65,20 +74,23 @@ export default function Dashboard() {
       {
         label: 'Actual User Set Temperature',
         data: target,
-        borderColor: colors.green,
-        backgroundColor: colors.green_bg,
+        borderColor: colors.darkTeal,
+        backgroundColor: colors.darkTeal_bg,
+        tension: 0.1,
       },
       {
         label: 'Predicted User Set Temperature',
         data: pred,
-        borderColor: colors.red,
-        backgroundColor: colors.red_bg,
+        borderColor: colors.teal,
+        backgroundColor: colors.teal_bg,
+        tension: 0.1,
       },
       {
         label: 'Current Room Temperature',
         data: current,
-        borderColor: colors.blue,
-        backgroundColor: colors.blue_bg,
+        borderColor: colors.purple,
+        backgroundColor: colors.purple_bg,
+        tension: 0.1,
       },
     ];
   }, [target, pred, current]);
