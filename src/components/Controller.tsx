@@ -43,8 +43,8 @@ export default function Controller(props: any) {
   return (
     <>
       <div className="Controller">
-        {!props.isControl &&
-          <div className="container control-container mt-4 mx-2 control-1">
+        {isControl===4 &&
+          <div className="container control-container date mt-4 control-1">
             <span className='fs-6 fw-light'>Date</span>
             <p className='fs-2 fw-bold'>2024 / {props.month} / {props.day}</p>
           </div>

@@ -10,6 +10,9 @@
         background-color: $white;
         padding: 10px 0px 8px 0px;
         border-radius: 15px;
+        &.date{
+            width: 360px;
+        }
     }
     &-1{
         animation: slideUp .6s ease forwards;
