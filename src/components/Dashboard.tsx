@@ -102,7 +102,7 @@ export default function Dashboard() {
         return tempSet;
     })
   };
-
+  
   useEffect(() => {
     console.log('dashboard mounted');
     dispatch(getPredArr());
@@ -116,7 +116,12 @@ export default function Dashboard() {
   }, [isPredict, temps, dispatch]);
   
   const handleNewData = () => {
+    const start = performance.now();
     dispatch(getPredData()); //get data from server
+    const end = performance.now();
+    const duration = end - start;
+    console.log(`Rendering took ${duration} milliseconds`);
+    
     //add new label
     const num: any = labels.at(-1);
     labels = [...labels, num + 1];

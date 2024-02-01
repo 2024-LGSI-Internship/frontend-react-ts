@@ -17,12 +17,13 @@
         align-items: center;
     }
     &-bi{
-        font-size: 35px;
+        font-size: 30px;
     }
     &-container{
         height: 580px;
         padding-bottom: 20px;
         overflow-y: auto;
+        // overflow-x:hidden;
         .answer{
             display: inline-block;
             margin: 10px 0px 0px 0px;
@@ -35,7 +36,7 @@
                 max-width: 80%;
                 height: auto;
                 width: auto;
-                word-wrap: break-word;
+                // word-break: break-all;
                 background-color: #b9d5f4;
                 margin: 5px 100px 0px 10px;
                 padding: 10px;
@@ -61,7 +62,7 @@
                 max-width: 80%;
                 height: auto;
                 width: auto;
-                word-wrap: break-word;
+                word-break:break-all;
                 background-color: #fafafa;
                 margin: 5px 10px 0px 0px;
                 padding: 10px;

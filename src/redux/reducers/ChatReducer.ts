@@ -1,8 +1,13 @@
 import { createSlice, createAsyncThunk, PayloadAction} from "@reduxjs/toolkit";
 import axios from "axios";
+import { userInfo } from "os";
 
 interface postState{
   userInput:string
+}
+
+interface imageState{
+  image: string
 }
 
 const headers = {
@@ -21,12 +26,20 @@ export const postChatData = createAsyncThunk<postState,string>('POST_CHATDATA',
   }
 )
 
+export const postImageData = createAsyncThunk<imageState, string>('POST_IMAGEDATA',
+  async (userImage) => {
+    const response = await axios.post('/img', { 'img': userImage }, headers)
+    return response.data;
+  }
+)
+
 interface chatState {
   inputCount: number,
   userInputs: string[],
   answerCount: number,
   aiAnswers: string[],
-  getChatResponse: string
+  isImageInputs: boolean[],
+  getChatResponse: string,
 }
 
 // Define the initial state using that type
@@ -35,6 +48,7 @@ const initialState: chatState = {
   userInputs: [],
   answerCount:0,
   aiAnswers: [],
+  isImageInputs: [],
   getChatResponse: 'None',
 }
 
@@ -42,30 +56,48 @@ export const chatSlice = createSlice({
   name: "chat",
   initialState,
   reducers: {
-    saveUserInput: (state, action: PayloadAction<string>) => {
-      state.userInputs.push(action.payload);
+    saveUserInput: (state, action: PayloadAction<{ input: string, isImage: boolean }>) => {
+      state.userInputs = [...state.userInputs, action.payload.input];
+      if (action.payload.isImage)
+        state.isImageInputs = [...state.isImageInputs, action.payload.isImage];
       state.inputCount += 1;
-      // console.log(`chat reducer userinputs: ${state.userInputs}`);
-      // console.log(`chat reducer inputcount: ${state.inputCount}`);
-    }
+      console.log(state.userInputs);
+    },
   },
   extraReducers: (builder) => {
     builder
+    //CHAT AI
+    .addCase(postChatData.rejected, (state) => {
+      state.getChatResponse = 'failed';
+      console.log(`CHAT IMAGE POST RESPONSE STATUS: ${state.getChatResponse}`)
+    })
     .addCase(postChatData.pending, (state) => {
       state.getChatResponse = 'loading';
       console.log(`CHAT GET RESPONSE STATUS: ${state.getChatResponse}`)
-    })
-    .addCase(postChatData.rejected, (state, action) => {
-      state.getChatResponse = 'failed';
-      console.log(`CHAT POST : ${JSON.stringify(action.payload)} REJECTED`);
     })
     .addCase(postChatData.fulfilled, (state, action: any) => {
       state.getChatResponse = 'complete';
       console.log(`CHAT POST: ${JSON.stringify(action.payload)}`);
       console.log(`CHAT POST RESPONSE STATUS: ${state.getChatResponse}`)
-      const new_answer = JSON.parse(action.payload);
+      const new_answer = action.payload;
       state.aiAnswers = [...state.aiAnswers, new_answer.output];
-      console.log(state.aiAnswers);
+      state.answerCount += 1;
+    })
+    //VISION AI
+    .addCase(postImageData.rejected, (state) => {
+      state.getChatResponse = 'failed';
+      console.log(`CHAT IMAGE POST RESPONSE STATUS: ${state.getChatResponse}`)
+    })
+    .addCase(postImageData.pending, (state) => {
+      state.getChatResponse = 'loading';
+      console.log(`CHAT IMAGE POST RESPONSE STATUS: ${state.getChatResponse}`)
+    })
+    .addCase(postImageData.fulfilled, (state, action: any) => {
+      state.getChatResponse = 'complete';
+      console.log(`CHAT IMAGE POST: ${JSON.stringify(action.payload)}`);
+      console.log(`CHAT IMAGE POST RESPONSE STATUS: ${state.getChatResponse}`)
+      const new_answer = action.payload;
+      state.aiAnswers = [...state.aiAnswers, new_answer.output];
       state.answerCount += 1;
     })
   }  
