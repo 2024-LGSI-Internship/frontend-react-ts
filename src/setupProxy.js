@@ -11,11 +11,11 @@ module.exports = function (app) {
       changeOrigin: true,
     }),
     createProxyMiddleware('/chat', { //chatbot server
-      target: 'http://3717-34-147-59-30.ngrok-free.app',
+      target: 'http://b03f-34-90-72-81.ngrok-free.app',
       changeOrigin: true,
     }),
     createProxyMiddleware('/img', { //vision server
-      target: 'http://5b7a-172-83-13-4.ngrok-free.app',
+      target: 'http://2209-34-125-15-144.ngrok-free.app',
       changeOrigin: true,
     }),
 

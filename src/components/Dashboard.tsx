@@ -66,7 +66,9 @@ export default function Dashboard() {
     return {current: current.at(-1), pred: pred.at(-1), target: target.at(-1)}
   },[current, pred, target]);
 
-  const diff = Math.abs(target.at(-1)! - pred.at(-1)!).toFixed(1);
+  const diff = useMemo(() => {
+    return Math.abs(target.at(-1)! - pred.at(-1)!).toFixed(1);
+  }, [target, pred]);
   let labels = Array.from({ length: pred.length }, (v, i) => i + 1);
 
   const tempSets = useMemo(() => {
@@ -121,7 +123,7 @@ export default function Dashboard() {
     const end = performance.now();
     const duration = end - start;
     console.log(`Rendering took ${duration} milliseconds`);
-    
+
     //add new label
     const num: any = labels.at(-1);
     labels = [...labels, num + 1];

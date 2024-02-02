@@ -14,7 +14,7 @@ export const getPredData = createAsyncThunk('GET_PREDDATA',
     const response = await axios.get('dashboard/2')
     const end = performance.now();
     const duration = end - start;
-    console.log(`Rendering took ${duration} milliseconds`);
+    console.log(`GET Dashboard Data took ${duration} milliseconds`);
     return response.data;
   }
 )
