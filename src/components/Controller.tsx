@@ -31,7 +31,8 @@ export default function Controller(props: any) {
   const handleSave = () => {
     if(isControl===2){       // isControl === 2 : Controller
       dispatch(postUserData(stat));
-      setShowToast(true);
+      setShowToast(!showToast);
+      setTimeout(()=>setShowToast(false), 3000);
     }
     else {    // isControl === 4 : Calendar Custom Settings
       dispatch(addNewReserve({month: props.month, day: props.day}));

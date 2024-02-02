@@ -44,15 +44,15 @@ export const calendarSlice = createSlice({
       let copy = [...state.schedule];
       const idxMonth = copy.findIndex(obj => obj.month === m)
       if (idxMonth === -1) {//same month does not exist
-        copy.push({ month: m, days: [{ day: d, time: ['null'] },] });
+        copy.push({ month: m, days: [{ day: d, time: ['12:00-15:00'] },] });
       }
       else {
         const idxDay = copy[idxMonth].days.findIndex((obj: { day: any, time: string[] }) => obj.day === d)
         if (idxDay === -1) {//same day does not exist
-          copy[idxMonth].days.push({ day: d, time: ['null'] });
+          copy[idxMonth].days.push({ day: d, time: ['12:00-15:00'] });
         }
         else {//same month, same day exists but different time
-          copy[idxMonth].days[idxDay].time.push('null');
+          copy[idxMonth].days[idxDay].time.push('12:00-15:00');
         }
       }
       state.schedule = copy;

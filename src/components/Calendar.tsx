@@ -68,6 +68,7 @@ export default function Calendar() {
 
   const handleToggleToast = () => {
     setShowToast(!showToast);
+    setTimeout(()=>setShowToast(false), 3000);
   }
 
   const handleCustomSchedule = (e:any) => {
@@ -121,7 +122,7 @@ export default function Calendar() {
         <div className="toast show align-items-center toast-save" role="alert" aria-live="assertive" aria-atomic="true">
           <div className="d-flex">
             <div className="toast-body">
-              Your AC settings are saved!
+              Your custom settings are reserved!
             </div>
             <button type="button" className="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close" onClick={()=>setShowToast(false)}></button>
           </div>

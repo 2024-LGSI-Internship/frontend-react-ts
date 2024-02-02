@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { useAppDispatch,useAppSelector } from '../hooks';
 import { applyAiTemp } from '../redux/reducers/StatusReducer';
 import '../styles/status.scss'
@@ -8,7 +8,14 @@ export default function Status() {
   let userStat = useAppSelector(state => { return state.status.userData });
   let aiTemp = useAppSelector(state => { return state.status.aiTemp });
   let curStat = useAppSelector(state => { return state.status.curData });
+  const [showToast, setShowToast] = useState(false);
   const dispatch = useAppDispatch();
+
+  const handleAiTemp = () => {
+    dispatch(applyAiTemp());
+    setShowToast(!showToast);
+    setTimeout(()=>setShowToast(false), 3000);
+  }
 
   return (
     <div className="status">
@@ -19,8 +26,8 @@ export default function Status() {
           </div>
           <div className="status-content">
             <span className='fs-6 fw-light'>Smart Recommendation</span>
-            <p className='fs-3 fw-bolder'>{isPredict ? `${aiTemp}℃`:'OFF'}</p>
-            <button className={`btn btn-apply ${isPredict?'':'disabled'}`} onClick={()=>dispatch(applyAiTemp())}>Apply</button>
+            <p className='fs-3 fw-bolder'>{isPredict ? (aiTemp===undefined?'OFF':`${aiTemp}℃`):'OFF'}</p>
+            <button className={`btn btn-apply ${isPredict?'':'disabled'}`} onClick={handleAiTemp}>Apply</button>
           </div>
         </div>
       </div>
@@ -84,6 +91,16 @@ export default function Status() {
           </div>
         </div>
       </div>
+      {showToast &&
+        <div className="toast show align-items-center toast-save" role="alert" aria-live="assertive" aria-atomic="true">
+          <div className="d-flex">
+            <div className="toast-body">
+              Smart Recommendation applied!
+            </div>
+            <button type="button" className="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close" onClick={()=>setShowToast(false)}></button>
+          </div>
+        </div>
+      }
     </div>
   );
 }
