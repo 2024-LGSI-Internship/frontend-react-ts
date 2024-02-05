@@ -69,6 +69,7 @@ export default function Dashboard() {
   const diff = useMemo(() => {
     return Math.abs(target.at(-1)! - pred.at(-1)!).toFixed(1);
   }, [target, pred]);
+  
   let labels = Array.from({ length: pred.length }, (v, i) => i + 1);
 
   const tempSets = useMemo(() => {

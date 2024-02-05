@@ -32,6 +32,7 @@
         - Remote control button presses: setTemp, setMode, setWindStrength, setWindAngle changes
         - Chatbot communication: FAQ answers, model description (image recognition)
         - Calendar reservation data (manually registered reservation operating time sent to the backend)
+    - Using Redux-thunk for Asynchronous Communication in Redux
 - **Designing Data State Management Structure**
     - Global State Management (Redux)
         - Air conditioner information (user, cur) data
