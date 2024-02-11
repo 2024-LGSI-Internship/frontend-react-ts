@@ -85,18 +85,6 @@
      - View Calendar - `Calendar.tsx`
      - Data Visualization - `Dashboard.tsx`
 
-## API Lists
-    |Features|Type|HTTP Method|API Path|File|
-    |--------|--------|------|--------|--------|
-    |User Aircon Data Send|POST_USERDATA|POST|/api/postAirconData/${userName}|StatusReducer|
-    |User Aircon Data Load|GET_USERDATA|GET|/api/getBasicSetting/${userName}|StatusReducer|
-    |Temperatrue, Humidity Load|GET_CURDATA|GET|/api/getHumidTemp/${userName}|StatusReducer|
-    |Text Chatting|POST_CHATDATA|POST|/chat|ChatReducer|
-    |Image Chatting|POST_IMAGEDATA|POST|/img|ChatReducer|
-    |Model tempe prediction data Load - Array|GET_PREDARR|GET|/dashboard/1|DashboardReducer|
-    |Model temp prediction data Load|GET_PREDDATA|GET|/dashboard/2|DashboardReducer|
-    
-
 ## requirements
 - `npm i react-scripts axios @types/http-proxy-middleware`
 - `npm i @reduxjs/toolkit react-redux`
