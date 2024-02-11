@@ -1,9 +1,12 @@
 # LGSI INTERNSHIP - Smart AI Air Conditioner : Frontend
 
-##System Architecture and Service Pipelines
-![System Architecture](https://prod-files-secure.s3.us-west-2.amazonaws.com/538920de-60e1-416f-8728-852edb936c5c/ce72a3d1-7bfc-4dc5-b550-1f984aa93693/Untitled.png)
+## Main UI
+![Main UI](https://github.com/2024-LGSI-Internship/frontend-react-ts/assets/42794553/42898f2f-b3d1-423c-8328-63f9d8786097)
 
-![Service Pipelines](https://prod-files-secure.s3.us-west-2.amazonaws.com/538920de-60e1-416f-8728-852edb936c5c/36811eb3-4a8a-4a4d-862f-efdefd1f31ba/Untitled.png)
+## System Architecture and Service Pipelines
+![System Architecture](https://github.com/2024-LGSI-Internship/frontend-react-ts/assets/42794553/91f355fe-c510-41a7-9691-4bc7d322ef5d)
+
+![Service Pipelines](https://github.com/2024-LGSI-Internship/frontend-react-ts/assets/42794553/be84afb2-ccfc-41ee-863b-c2a835ffd8b1)
 
 ## Used Skill Stacks
 - React
@@ -13,46 +16,86 @@
 - Bootstrap 5
 - Chart.js
 
-## FE Plans
-- **Listing Required Features**
-    1. Listing Air Conditioner Information
-        - Air Conditioner Information: userTemp, userMode, userDate, userTime, userWindStrength, userWindAngle
-        - Current Information (Arduino): curHumid, curTemp
-    2. Remote Control Function
-        - Modify currently running air conditioner information by pressing buttons (e.g., temperature change)
-    3. Chatbot Function
-        - Conversation with the chatbot through chat
-            - FAQ questions, attachment of air conditioner model pictures
-    4. Reservation Calendar
-        - Show recommended operating time slots based on AI learning through the calendar date.
-        - Allow users to manually reserve air conditioner operating time by clicking on the date in the calendar.
-- **Choosing Programming Tools/Frameworks**
-    - Planning to use React.js for frontend implementation; componentizing each page makes frontend implementation easy.
-- **Deciding Data to Receive and Send from Backend**
-    - Data to Receive
-        - Air conditioner information (received in JSON format for frontend state management)
-        - Chatbot response results
-        - Calendar data (display AI recommended time slots)
-    - Data to Send
-        - Remote control button presses: setTemp, setMode, setWindStrength, setWindAngle changes
-        - Chatbot communication: FAQ answers, model description (image recognition)
-        - Calendar reservation data (manually registered reservation operating time sent to the backend)
-    - Using Redux-thunk for Asynchronous Communication in Redux
-- **Designing Data State Management Structure**
-    - Global State Management (Redux)
-        - Air conditioner information (user, cur) data
-        (Displayed in **`Status.tsx`**, updated in **`Controller.tsx`**, sent after update)
-        - Manually registered air conditioner operating data - date/time
-        (Displayed in **`Calendar.tsx`**, also displayed in **`Status.tsx`**)
-    - Local State Management (State)
-        - Chatbot send/receive data (conversation history)
-- **Designing UI (Design) and Implementation**
-    - Planning to implement in web app format
-    - Four pages
-        - View Status - **`Status.tsx`**
-        - Remote Controller - **`Controller.tsx`**
-        - AI Chat - **`Chat.tsx`**
-        - View Calendar - **`Calendar.tsx`**
+## Frontend Architecture
+![Frontend Architecture](https://github.com/2024-LGSI-Internship/frontend-react-ts/assets/42794553/8fe3b24b-4f34-4bb9-a5fb-fa7c6772073e)
+
+## Key Features
+### Interface
+1. **Display Air Conditioner Information**
+   - Air conditioner information: `userTemp, userMode, userDate, userTime, userWindStrength, userWindAngle`
+   - Current information: `curHumid, curTemp`
+   - Fetch air conditioner information from the server using GET
+   - Global state management through `StatusReducer.ts`
+
+2. **Remote Control Functionality**
+   - Modify currently operating air conditioner information by pressing buttons (e.g., changing temperature)
+   - Update information in `StatusReducer.ts` and POST to the server for storage
+
+3. **Chatbot Functionality**
+   - Conversations with a chatbot through chat messages
+   - POST questions to a general QnA server and receive responses
+   - POST base64-based image data to a Vision AI server for air conditioner classification and analysis
+   - Global state management through `ChatReducer.ts`
+
+4. **Reservation Calendar**
+   - Users can manually select dates on the calendar to schedule air conditioner operating times
+   - Global state management through `Calendar.ts`
+
+### Dashboard
+   - Fetch model prediction results from the server using GET and visualize them using Chart.js as a Line Chart
+   - Display information in `Status.tsx` during prediction initiation based on prediction data
+   - Fetch user information from the server again after prediction completion
+
+## Backend Data Communication
+### Data to Receive
+   - Air conditioner information (GET Response) - Managed by `StatusReducer.ts`
+   - Chatbot response results (POST Response) - Managed by `ChatReducer.ts`
+   - Prediction model results (GET Response) - Managed by `DashboardReducer.ts`
+### Data to Send
+   - Controller.tsx modification results (POST) - Managed by `StatusReducer.ts`
+   - User questions for the chatbot (POST) - Managed by `ChatReducer.ts`
+   - ~~Calendar reservation data (Backend transmission of manually registered operating times)~~ (Not implemented)
+
+   - Asynchronous communication implemented using Redux-thunk within Redux
+
+## Data State Management Structure
+### Global State Management (Redux)
+   - `PageReducer.ts`
+     - Manages page numbers in `Interface.tsx`, globally for future page references
+
+   - `StatusReducer.ts`
+     - Manages air conditioner information (user, cur) data
+
+   - `ChatReducer.ts`
+     - Manages chat history (questions/answers)
+
+   - `CalendarReducer.ts`
+     - Manages manually registered air conditioner operating data - date/time and air conditioner information
+
+   - `DashboardReducer.ts`
+     - Stores prediction result in an array data type
+
+## UI/UX
+   - Utilizing Bootstrap 5, SCSS
+   - Implemented as a web app (webapp)
+   - Two main components in `App.tsx`: `Interface.tsx, Dashboard.tsx`
+     - View Status - `Status.tsx`
+     - Remote Controller - `Controller.tsx`
+     - AI Chat - `Chat.tsx`
+     - View Calendar - `Calendar.tsx`
+     - Data Visualization - `Dashboard.tsx`
+
+## API Lists
+    |Features|Type|HTTP Method|API Path|File|
+    |--------|--------|------|--------|--------|
+    |User Aircon Data Send|POST_USERDATA|POST|/api/postAirconData/${userName}|StatusReducer|
+    |User Aircon Data Load|GET_USERDATA|GET|/api/getBasicSetting/${userName}|StatusReducer|
+    |Temperatrue, Humidity Load|GET_CURDATA|GET|/api/getHumidTemp/${userName}|StatusReducer|
+    |Text Chatting|POST_CHATDATA|POST|/chat|ChatReducer|
+    |Image Chatting|POST_IMAGEDATA|POST|/img|ChatReducer|
+    |Model tempe prediction data Load - Array|GET_PREDARR|GET|/dashboard/1|DashboardReducer|
+    |Model temp prediction data Load|GET_PREDDATA|GET|/dashboard/2|DashboardReducer|
+    
 
 ## requirements
 - `npm i react-scripts axios @types/http-proxy-middleware`
