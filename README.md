@@ -1,5 +1,10 @@
 # LGSI INTERNSHIP - Smart AI Air Conditioner : Frontend
 
+##System Architecture and Service Pipelines
+![System Architecture](https://prod-files-secure.s3.us-west-2.amazonaws.com/538920de-60e1-416f-8728-852edb936c5c/ce72a3d1-7bfc-4dc5-b550-1f984aa93693/Untitled.png)
+
+![Service Pipelines](https://prod-files-secure.s3.us-west-2.amazonaws.com/538920de-60e1-416f-8728-852edb936c5c/36811eb3-4a8a-4a4d-862f-efdefd1f31ba/Untitled.png)
+
 ## Used Skill Stacks
 - React
 - React-Redux, Redux-Thunk

@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk, PayloadAction} from "@reduxjs/toolkit";
 import axios from "axios";
-import { userInfo } from "os";
 
 interface postState{
   userInput:string
@@ -42,7 +41,6 @@ interface chatState {
   getChatResponse: string,
 }
 
-// Define the initial state using that type
 const initialState: chatState = {
   inputCount: 0,
   userInputs: [],
