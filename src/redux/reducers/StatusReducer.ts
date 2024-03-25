@@ -7,33 +7,24 @@ interface postState{
   userData: userDataState
 }
 
-const headers = {
-  'Content-Type': 'application/json',
-  'ngrok-skip-browser-warning': 'true',
-  "Access-Control-Allow-Origin": "*",
-  'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
-  Accept: 'application/json',
-  withCredentials: true // 쿠키 cors 통신 설정,
-}
-
 //createAsynchThunk : 비동기 통신을 작업하는 action 생성
 export const postUserData = createAsyncThunk<postState,userDataState>('POST_USERDATA',
   async (userData) => {
-    const response = await axios.post(`https://lgsi-backend-vercel.vercel.app/settings/postAirconData/${userName}`, { 'userData': userData }, headers)
+    const response = await axios.post(`settings/postAirconData/${userName}`, { 'userData': userData })
     return response.data;
   }
 )
 
 export const getUserData = createAsyncThunk('GET_USERDATA',
   async () => {
-    const response = await axios.get(`https://lgsi-backend-vercel.vercel.app/settings/getBasicSetting/${userName}`, headers)
+    const response = await axios.get(`settings/getBasicSetting/${userName}`)
     return response.data;
   }
 )
 
 export const getCurData = createAsyncThunk('GET_CURDATA',
   async () => {
-    const response = await axios.get(`https://lgsi-backend-vercel.vercel.app/settings/getHumidTemp/${userName}`, headers)
+    const response = await axios.get(`settings/getHumidTemp/${userName}`)
     //.then 구문 사용시 rejected 됨.
     return response.data;
   }
@@ -145,7 +136,7 @@ export const statusSlice = createSlice({
     .addCase(getUserData.fulfilled, (state, action) => {
       // let userDataResponse = action.payload;
       // userDataResponse.userTemp = parseInt(userDataResponse.userTemp);
-      console.log(action.payload);
+      // console.log(action.payload)
       // console.log(typeof(state.userData))
       Object.assign(state.userData, action.payload);
       state.getUserResponse = 'complete';

@@ -1,0 +1,12 @@
+{
+  "rewrites": [
+    {
+      "source": "/settings/:path*",
+      "destination": "https://lgsi-backend-vercel.vercel.app/:path*"
+    },
+    {
+      "source": "/dashboard/:path*",
+      "destination": "https://lgsi-backend-vercel.vercel.app/:path*"
+    }
+  ]
+}

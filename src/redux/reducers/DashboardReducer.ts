@@ -1,18 +1,9 @@
 import { createSlice, createAsyncThunk, PayloadAction} from "@reduxjs/toolkit";
 import axios from "axios";
 
-const headers = {
-  'Content-Type': 'application/json',
-  'ngrok-skip-browser-warning': 'true',
-  "Access-Control-Allow-Origin": "*",
-  'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
-  Accept: 'application/json',
-  withCredentials: true // 쿠키 cors 통신 설정,
-}
-
 export const getPredArr = createAsyncThunk('GET_PREDARR',
   async () => {
-    const response = await axios.get('https://lgsi-backend-vercel.vercel.app/dashboard/1', headers)
+    const response = await axios.get('dashboard/1')
     return response.data;
   }
 )
@@ -20,7 +11,7 @@ export const getPredArr = createAsyncThunk('GET_PREDARR',
 export const getPredData = createAsyncThunk('GET_PREDDATA',
   async () => {
     const start = performance.now();
-    const response = await axios.get('https://lgsi-backend-vercel.vercel.app/dashboard/2', headers)
+    const response = await axios.get('dashboard/2')
     const end = performance.now();
     const duration = end - start;
     console.log(`GET Dashboard Data took ${duration} milliseconds`);
