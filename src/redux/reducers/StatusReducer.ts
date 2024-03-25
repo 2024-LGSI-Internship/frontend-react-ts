@@ -134,11 +134,11 @@ export const statusSlice = createSlice({
       state.getUserResponse = 'loading'; 
     })
     .addCase(getUserData.fulfilled, (state, action) => {
-      let userDataResponse = action.payload;
-      userDataResponse.userTemp = parseInt(userDataResponse.userTemp);
+      // let userDataResponse = action.payload;
+      // userDataResponse.userTemp = parseInt(userDataResponse.userTemp);
       // console.log(action.payload)
       // console.log(typeof(state.userData))
-      Object.assign(state.userData, userDataResponse);
+      Object.assign(state.userData, action.payload);
       state.getUserResponse = 'complete';
       console.log(`getUserResponse is ${state.getUserResponse}`)
     })
