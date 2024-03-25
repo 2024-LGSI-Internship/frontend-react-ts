@@ -63,10 +63,16 @@ export default function Dashboard() {
   const [toggleLines, setToggleLines] = useState([true, true, true]);
 
   const temps = useMemo(() => {
+    if (Array.isArray(current) && current.length === 0) {
+      return { current: 0, pred: 0, target: 0 };
+    }
     return {current: current.at(-1), pred: pred.at(-1), target: target.at(-1)}
   },[current, pred, target]);
 
   const diff = useMemo(() => {
+    if (Array.isArray(target) && target.length === 0) {
+      return 0;
+    }
     return Math.abs(target.at(-1)! - pred.at(-1)!).toFixed(1);
   }, [target, pred]);
   
