@@ -2,12 +2,12 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 
 module.exports = function (app) {
   app.use(
-    createProxyMiddleware('/api', { //user api server
-      target: 'http://127.0.0.1:5000',
+    createProxyMiddleware('/settings', { //user api server
+      target: 'https://lgsi-backend-vercel.vercel.app/',
       changeOrigin: true,
     }),
     createProxyMiddleware('/dashboard', { //dashboard server
-      target: 'http://127.0.0.1:5000',
+      target: 'https://lgsi-backend-vercel.vercel.app/',
       changeOrigin: true,
     }),
     createProxyMiddleware('/chat', { //chatbot server

@@ -10,21 +10,21 @@ interface postState{
 //createAsynchThunk : 비동기 통신을 작업하는 action 생성
 export const postUserData = createAsyncThunk<postState,userDataState>('POST_USERDATA',
   async (userData) => {
-    const response = await axios.post(`api/postAirconData/${userName}`, { 'userData': userData })
+    const response = await axios.post(`settings/postAirconData/${userName}`, { 'userData': userData })
     return response.data;
   }
 )
 
 export const getUserData = createAsyncThunk('GET_USERDATA',
   async () => {
-    const response = await axios.get(`api/getBasicSetting/${userName}`)
+    const response = await axios.get(`settings/getBasicSetting/${userName}`)
     return response.data;
   }
 )
 
 export const getCurData = createAsyncThunk('GET_CURDATA',
   async () => {
-    const response = await axios.get(`api/getHumidTemp/${userName}`)
+    const response = await axios.get(`settings/getHumidTemp/${userName}`)
     //.then 구문 사용시 rejected 됨.
     return response.data;
   }
