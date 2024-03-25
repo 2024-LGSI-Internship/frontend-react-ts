@@ -2,11 +2,19 @@
   "rewrites": [
     {
       "source": "/settings/:path*",
-      "destination": "https://lgsi-backend-vercel.vercel.app/:path*"
+      "destination": "https://lgsi-backend-vercel.vercel.app/settings/:path*"
+    },
+    {
+      "source": "/settings/:path*/",
+      "destination": "https://lgsi-backend-vercel.vercel.app/settings/:path*/"
     },
     {
       "source": "/dashboard/:path*",
-      "destination": "https://lgsi-backend-vercel.vercel.app/:path*"
+      "destination": "https://lgsi-backend-vercel.vercel.app/dashboard/:path*"
+    },
+    {
+      "source": "/dashboard/:path*/",
+      "destination": "https://lgsi-backend-vercel.vercel.app/dashboard/:path*/"
     }
   ]
 }
