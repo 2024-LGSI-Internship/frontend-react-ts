@@ -136,7 +136,7 @@ export const statusSlice = createSlice({
     .addCase(getUserData.fulfilled, (state, action) => {
       // let userDataResponse = action.payload;
       // userDataResponse.userTemp = parseInt(userDataResponse.userTemp);
-      // console.log(action.payload)
+      console.log(action.payload);
       // console.log(typeof(state.userData))
       Object.assign(state.userData, action.payload);
       state.getUserResponse = 'complete';
