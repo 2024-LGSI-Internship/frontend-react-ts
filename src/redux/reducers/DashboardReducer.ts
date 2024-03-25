@@ -48,12 +48,12 @@ const dashboardSlice = createSlice({
     extraReducers: (builder) => {
         builder
         .addCase(getPredArr.fulfilled, (state, action) => {
-            // console.log(action.payload);
+            console.log(action.payload);
             const res = action.payload;
             [state.target, state.pred, state.current] = [res.target, res.pred, res.current];
         })
         .addCase(getPredData.fulfilled, (state, action) => {
-            // console.log(action.payload);
+            console.log(action.payload);
             const res = action.payload;
             state.target = [...state.target, parseInt(res.target)];
             state.pred = [...state.pred, res.pred];

@@ -57,23 +57,23 @@ const colors = {
 export default function Dashboard() {
   const dispatch = useAppDispatch();
   const isPredict = useAppSelector(state => { return state.dashboard.isPredict });
-  const target = useAppSelector(state => { return state.dashboard.target });
-  const pred = useAppSelector(state => { return state.dashboard.pred });
-  const current = useAppSelector(state => { return state.dashboard.current });
+  const target:number[] = useAppSelector(state => { return state.dashboard.target });
+  const pred:number[] = useAppSelector(state => { return state.dashboard.pred });
+  const current:number[] = useAppSelector(state => { return state.dashboard.current });
   const [toggleLines, setToggleLines] = useState([true, true, true]);
 
   const temps = useMemo(() => {
     if (Array.isArray(current) && current.length === 0) {
       return { current: 0, pred: 0, target: 0 };
     }
-    return {current: current.at(-1), pred: pred.at(-1), target: target.at(-1)}
+    return {'current': current[current.length-1], 'pred': pred[pred.length-1], 'target': target[target.length-1]}
   },[current, pred, target]);
 
   const diff = useMemo(() => {
     if (Array.isArray(target) && target.length === 0) {
       return 0;
     }
-    return Math.abs(target.at(-1)! - pred.at(-1)!).toFixed(1);
+    return Math.abs(target[target.length-1]! - pred[pred.length-1]!).toFixed(1);
   }, [target, pred]);
   
   let labels = Array.from({ length: pred.length }, (v, i) => i + 1);
