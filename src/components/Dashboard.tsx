@@ -80,7 +80,7 @@ export default function Dashboard() {
     return Math.abs(target[target.length-1]! - pred[pred.length-1]!).toFixed(1);
   }, [target, pred]);
   
-  let labels = Array.from({ length: pred.length }, (v, i) => i + 1);
+  let labels = pred===undefined?[0]:Array.from({ length: pred.length }, (v, i) => i + 1);
 
   const tempSets = useMemo(() => {
     return [
