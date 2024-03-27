@@ -15,6 +15,22 @@
     {
       "source": "/dashboard/:path*/",
       "destination": "https://lgsi-backend-vercel.vercel.app/dashboard/:path*/"
+    },
+    {
+      "source": "/chat/:path*/",
+      "destination": "https://lgsi-backend-vercel.vercel.app/chat/:path*/"
+    },
+    {
+      "source": "/chat/:path*",
+      "destination": "https://lgsi-backend-vercel.vercel.app/chat/:path*"
+    },
+    {
+      "source": "/img/:path*",
+      "destination": "https://lgsi-backend-vercel.vercel.app/img/:path*"
+    },
+    {
+      "source": "/img/:path*/",
+      "destination": "https://lgsi-backend-vercel.vercel.app/img/:path*/"
     }
   ]
 }
