@@ -17,20 +17,20 @@
       "destination": "https://lgsi-backend-vercel.vercel.app/dashboard/:path*/"
     },
     {
-      "source": "/chat/:path*/",
-      "destination": "https://lgsi-backend-vercel.vercel.app/chat/:path*/"
+      "source": "/chat",
+      "destination": "https://lgsi-backend-vercel.vercel.app/chat"
     },
     {
-      "source": "/chat/:path*",
-      "destination": "https://lgsi-backend-vercel.vercel.app/chat/:path*"
+      "source": "/chat/",
+      "destination": "https://lgsi-backend-vercel.vercel.app/chat"
     },
     {
-      "source": "/img/:path*",
-      "destination": "https://lgsi-backend-vercel.vercel.app/img/:path*"
+      "source": "/img",
+      "destination": "https://lgsi-backend-vercel.vercel.app/img"
     },
     {
-      "source": "/img/:path*/",
-      "destination": "https://lgsi-backend-vercel.vercel.app/img/:path*/"
+      "source": "/img/",
+      "destination": "https://lgsi-backend-vercel.vercel.app/img"
     }
   ]
 }
